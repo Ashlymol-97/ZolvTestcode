@@ -282,6 +282,14 @@ else:
 
 
 
+
+
+
+
+
+
+
+
 # **************************Building *********************************
 
 
@@ -317,8 +325,22 @@ else:
         print("Response JSON : ",json.dumps(build_json,indent=4))
         print("Building Listed Successfully..!")
         building_id=build_json['buildings'][0]['id']
-        # print(building_id)
+        print(building_id)
 
     else:
         print("Building Listed Failed..!")
+
+
+
+
+# # 9 : Area : Get Detailed List : 
+
+    print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
+    area_detailed_list = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list/{building_id}",headers=headers)
+    if area_detailed_list.status_code == 200:
+        print("Building Detailed List Listed")
+        area_detailed_json=area_detailed_list.json()
+        print(area_detailed_json)
+    else:
+        print("Building Detailed Listed Failed",area_detailed_list.text)
 
