@@ -291,8 +291,8 @@ else:
 
     print("\033[1;34mTESTING BUILDING CREATION !\033[0m")
     create_building_payload = {
-      "name": "BuildTest3",
-      "code": 4
+      "name": "BuildTest4",
+      "code": 5
     }
 
 
@@ -305,4 +305,20 @@ else:
         print("Create Building Failed...!",create_building.text)
         print(f"\033[1;91m❌ TEST FAILED...! : Failed Building Creation \033[0m")
 
+
+
+
+# 8 : Building : List ALL : 
+
+    print("\033[1;34mTESTING BUILDING LIST ALL!\033[0m")
+    building_list_all = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list",headers=headers)
+    if building_list_all.status_code == 200 :
+        build_json=building_list_all.json()
+        print("Response JSON : ",json.dumps(build_json,indent=4))
+        print("Building Listed Successfully..!")
+        building_id=build_json['buildings'][0]['id']
+        # print(building_id)
+
+    else:
+        print("Building Listed Failed..!")
 
