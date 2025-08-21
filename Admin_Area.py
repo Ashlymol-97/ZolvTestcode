@@ -57,7 +57,7 @@ else:
 
     create_parentarea_payload = {
         "name": "areatestparent",
-        "code": 60,
+        "code": 61,
         "areaType": "parent",
         "parentAreaId":"", #if choose child area in area type, parentarea id field is mandatory .
         "buildingId": "68709372293ae6389032a058",
@@ -119,60 +119,60 @@ else:
 
     print("\033[1;34mTESTING CHILD AREA CREATION !\033[0m")
 
-    # create_childarea_payload = {
-    #     "name": "area",
-    #     "code": 45,
-    #     "areaType": "child",
-    #     "parentAreaId":"68a6b1ba89c43b6512ea7925", #if choose child area in area type, parentarea id field is mandatory .
-    #     "buildingId": "68709372293ae6389032a058",
-    #     "floorId": "68709372293ae6389032a05a",
-    #     "isActive": True,
-    #     "moduleGroupId": "68709372293ae6389032a05b",
-    #     "paymentModes": [
-    #           {
-    #               "name": "paymentGateway",
-    #               "enabled": True
-    #           },
-    #           {
-    #               "name": "payOnDelivery",
-    #               "enabled": True
-    #           },
-    #           # // {
-    #           # //     "name": "employeeCredit",
-    #           # //     "enabled": false
-    #           # // },
-    #           {
-    #               "name": "roomCredit",
-    #               "enabled": True
-    #           }
-    #       ],
-    #     "deliveryModes":[
-    #           {
-    #               "name": "roomDelivery",
-    #               "enabled": True
-    #           },
-    #           {
-    #               "name": "takeAway",
-    #               "enabled": True
-    #           },
-    #           {
-    #               "name": "dineIn",
-    #               "enabled": True
-    #           }
-    #       ],
-    #     "preOrderStatus": True
+    create_childarea_payload = {
+        "name": "area",
+        "code": 45,
+        "areaType": "child",
+        "parentAreaId":"68a6b31389c43b6512ea7928", #if choose child area in area type, parentarea id field is mandatory .
+        "buildingId": "68709372293ae6389032a058",
+        "floorId": "68709372293ae6389032a05a",
+        "isActive": True,
+        "moduleGroupId": "68709372293ae6389032a05b",
+        "paymentModes": [
+              {
+                  "name": "paymentGateway",
+                  "enabled": True
+              },
+              {
+                  "name": "payOnDelivery",
+                  "enabled": True
+              },
+              # // {
+              # //     "name": "employeeCredit",
+              # //     "enabled": false
+              # // },
+              {
+                  "name": "roomCredit",
+                  "enabled": True
+              }
+          ],
+        "deliveryModes":[
+              {
+                  "name": "roomDelivery",
+                  "enabled": True
+              },
+              {
+                  "name": "takeAway",
+                  "enabled": True
+              },
+              {
+                  "name": "dineIn",
+                  "enabled": True
+              }
+          ],
+        "preOrderStatus": True
         
-    # }
+    }
 
-    # create_childarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_childarea_payload,headers=headers)
-    # if create_childarea.status_code == 200:
-    #   createchild_json=create_childarea.json()
-    #   print("Child Area Created Successfully..!",create_childarea.text)
-    #   # print("Response JSON : ",json.dumps(createchild_json,indent=4))
+    create_childarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_childarea_payload,headers=headers)
+    if create_childarea.status_code == 200:
+      createchild_json=create_childarea.json()
+      print("Child Area Created Successfully..!",create_childarea.text)
+      # print("Response JSON : ",json.dumps(createchild_json,indent=4))
 
-    # else:
+    else:
 
-    #   print("Failed Creation.",create_childarea.text) 
+      print("Failed Creation.",create_childarea.text) 
 
 
 
@@ -282,6 +282,27 @@ else:
 
 
 
+# **************************Building *********************************
 
+
+
+
+# 7 : : Building : Create :
+
+    print("\033[1;34mTESTING BUILDING CREATION !\033[0m")
+    create_building_payload = {
+      "name": "BuildTest3",
+      "code": 4
+    }
+
+
+    create_building = requests.post(base_url + f"api/v1/masters/building/web/{company_id}/create-building",json=create_building_payload,headers=headers)
+    if create_building.status_code == 201:
+        # print("Create Building Successfully..!")
+        print(f"\033[1;92m✅ TEST PASSED...! \033[0m")
+
+    else:
+        print("Create Building Failed...!",create_building.text)
+        print(f"\033[1;91m❌ TEST FAILED...! : Failed Building Creation \033[0m")
 
 
