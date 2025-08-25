@@ -7,7 +7,7 @@ import urllib.parse
 import base64
 import hashlib
 
-print(f"\033[1;92m** ZOLV ADMIN TESTCODE **.\033[0m")
+print(f"\033[1;34m** ZOLV ADMIN TESTCODE **.\033[0m")
 
 
 base_url= "https://qa-admin.zolv.health/"
@@ -22,28 +22,30 @@ login_payload = {
 }
 
 
-
+failed_count=0
+total_count=12
     
 # Login : 
 
-print("\033[1;34mTESTING LOGIN!\033[0m")
+# print("\033[1;34mTESTING LOGIN!\033[0m")
 response_login = requests.post(login_url,json=login_payload)
 if response_login.status_code != 200:
-    print(f"\033[91m❌ TEST FAILED...! : Invalid Credentials \033[0m")
+    failed_count+=1
+    print(f"\033[91m❌ TEST FAILED...! : Invalid Credentials : Test Case ID - 001\033[0m")
             # print("Response:", response_login.json())
 else:
     response_json = response_login.json()
-    print(f"Login Successfull   with status code {response_login.status_code}",login_payload)
+    # print(f"Login Successfull   with status code {response_login.status_code}",login_payload)
 
-    print("Response JSON : ",json.dumps(response_json,indent=4))
+    # print("Response JSON : ",json.dumps(response_json,indent=4))
     token= response_json.get('token',{}).get('token')
     company_id=response_json['company']['id']
-    print(f"\033[92m✅ TEST PASSED...!8888 \033[0m")
+    print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 001 \033[0m")
     headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
     }
-    print(f"Token (Login): {token}") 
+    # print(f"Token (Login): {token}") 
 
 
 
@@ -51,13 +53,13 @@ else:
 
 # 1 : Area : Create Parent :
 
-    print("\033[1;34mTESTING AREA CREATION !\033[0m")
-    print("\033[1;34mTESTING PARENT AREA CREATION !\033[0m")
+    # print("\033[1;34mTESTING AREA CREATION !\033[0m")
+    # print("\033[1;34mTESTING PARENT AREA CREATION !\033[0m")
 
 
     create_parentarea_payload = {
-        "name": "areatestparent",
-        "code": 61,
+        "name": "Hotels",
+        "code":786,
         "areaType": "parent",
         "parentAreaId":"", #if choose child area in area type, parentarea id field is mandatory .
         "buildingId": "68709372293ae6389032a058",
@@ -96,18 +98,22 @@ else:
                   "enabled": True
               }
           ],
-        "preOrderStatus": True
+        "preOrderStatus": False
         
     }
     create_parentarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_parentarea_payload,headers=headers)
     if create_parentarea.status_code == 200:
-      createparent_json=create_parentarea.json()
-      print("Parent Area Created Successfully..!",create_parentarea.text)
-      print("Response JSON : ",json.dumps(createparent_json,indent=4))
-
+       createparent_json=create_parentarea.json()
+      
+    #   print("Parent Area Created Successfully..!",create_parentarea.text)
+    #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
+       print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 002\033[0m")
     else:
+       failed_count+=1
 
-      print("Failed Creation.",create_parentarea.text) 
+       print(f"\033[91m❌ TEST FAILED...! : Invalid data or missing fields : Test Case ID - 002\033[0m")
+ 
+    #    print("Failed Creation.",create_parentarea.text) 
 
 
 
@@ -115,15 +121,15 @@ else:
 
    
 
-# 2 : Area create Child area :
+# 3 : Area create Child area :
 
-    print("\033[1;34mTESTING CHILD AREA CREATION !\033[0m")
+    # print("\033[1;34mTESTING CHILD AREA CREATION !\033[0m")
 
     create_childarea_payload = {
-        "name": "area",
-        "code": 45,
+        "name": "First Floors",
+        "code": 579,
         "areaType": "child",
-        "parentAreaId":"68a6b31389c43b6512ea7928", #if choose child area in area type, parentarea id field is mandatory .
+        "parentAreaId":"68a5af7a03cfe84816ecd0d7", #if choose child area in area type, parentarea id field is mandatory .
         "buildingId": "68709372293ae6389032a058",
         "floorId": "68709372293ae6389032a05a",
         "isActive": True,
@@ -166,14 +172,18 @@ else:
 
     create_childarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_childarea_payload,headers=headers)
     if create_childarea.status_code == 200:
-      createchild_json=create_childarea.json()
-      print("Child Area Created Successfully..!",create_childarea.text)
+       createchild_json=create_childarea.json()
+       print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 003\033[0m")
+    #   area_id = createparent_json.get('area', {}).get('id')
+    #   print(area_id)
+
+    #   print("Child Area Created Successfully..!",create_childarea.text)
       # print("Response JSON : ",json.dumps(createchild_json,indent=4))
 
     else:
-
-      print("Failed Creation.",create_childarea.text) 
-
+       failed_count+=1
+       print(f"\033[91m❌ TEST FAILED...! : Invalid data or missing fields : Test Case ID - 003\033[0m")
+    #   print("Failed Creation.",create_childarea.text) 
 
 
 
@@ -181,89 +191,99 @@ else:
 
 # 3 : Area : List ALL : 
 
-    print("\033[1;34mTESTING AREA LIST ALL!\033[0m")
+    # print("\033[1;34mGet Area List!\033[0m")
     area_list_all = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area-list",headers=headers)
     if area_list_all.status_code == 200 :
         list_json=area_list_all.json()
-        print("Response JSON : ",json.dumps(list_json,indent=4))
-        print("Area Listed Successfully..!")
-        area_id=list_json['areas'][0]['id']
-        # print(area_id)
+        # print("Response JSON : ",json.dumps(list_json,indent=4))
+        # print("Area Listed Successfully..!")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 004 \033[0m")
+
+        area_id_detailed=list_json['areas'][0]['id']
+        area_id_delete=list_json['areas'][-1]['id']
+        # print(area_id_delete)
 
     else:
-        print("Area Listed Failed..!")
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Request : Test Case ID - 004 \033[0m")
+
+        # print("Area Listed Failed..!")
 
 
 
 
 # # 4 : Area : Get Detailed List : 
 
-    print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
-    area_detailed_list = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area/{area_id}",headers=headers)
+    # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
+    area_detailed_list = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area/{area_id_detailed}",headers=headers)
     if area_detailed_list.status_code == 200:
-        print("Area Detailed List Listed")
+        # print("Area Detailed List Listed")
         area_detailed_json=area_detailed_list.json()
-        print(area_detailed_json)
+        # print(area_detailed_json)
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 005 \033[0m")
+
     else:
-        print("Area Detailed Listed Failed",area_detailed_list.text)
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Input : Test Case ID - 005\033[0m")
+        # print("Area Detailed Listed Failed",area_detailed_list.text)
 
 
 
 
-# # 5 : Area : Update List : doubt
+# # # 5 : Area : Update List : Pending
 
-    print("\033[1;34mTESTING AREA UPDATION !\033[0m")
+#     print("\033[1;34mTESTING AREA UPDATION !\033[0m")
 
-    update_area_payload = {
+#     update_area_payload = {
             
-            "name": "area",
-            "code": 80,
-            "areaType": "parent",
-            "parentAreaId": "68a6b1ba89c43b6512ea7925",
-            "buildingId": "68709372293ae6389032a058",
-            "floorId": "68709372293ae6389032a05a",
-            "isActive": True,
-            "moduleGroupId": "68709372293ae6389032a05b",
-            "paymentModes": [
-                {
-                    "name": "paymentGateway",
-                    "enabled": True
-                },
-                {
-                    "name": "payOnDelivery",
-                    "enabled": True
-                },
-                {
-                    "name": "roomCredit",
-                    "enabled": True
-                }
-            ],
-            "deliveryModes": [
-                {
-                    "name": "roomDelivery",
-                    "enabled": True
-                },
-                {
-                    "name": "takeAway",
-                    "enabled": True
-                },
-                {
-                    "name": "dineIn",
-                    "enabled": True
-                }
-            ],
-            "preOrderStatus":True,
-            "qrKey": "57463274",
-            "qrImage": "https://omniapictures.s3.ap-south-1.amazonaws.com/qrCodes/68a6b1ba89c43b6512ea7925.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250821T070818Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=AKIA2MVKJRWJKAZW67NQ%2F20250821%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c551179ce8dad1230a09e0e48109078e51b8a3de2f63be764a2e5b8fbf4b6357",
-            "languageId": "686f510c6e7e978b9132a03e"
-        }
+#             "name": "area",
+#             "code": 80,
+#             "areaType": "parent",
+#             "parentAreaId": "68a6b1ba89c43b6512ea7925",
+#             "buildingId": "68709372293ae6389032a058",
+#             "floorId": "68709372293ae6389032a05a",
+#             "isActive": True,
+#             "moduleGroupId": "68709372293ae6389032a05b",
+#             "paymentModes": [
+#                 {
+#                     "name": "paymentGateway",
+#                     "enabled": True
+#                 },
+#                 {
+#                     "name": "payOnDelivery",
+#                     "enabled": True
+#                 },
+#                 {
+#                     "name": "roomCredit",
+#                     "enabled": True
+#                 }
+#             ],
+#             "deliveryModes": [
+#                 {
+#                     "name": "roomDelivery",
+#                     "enabled": True
+#                 },
+#                 {
+#                     "name": "takeAway",
+#                     "enabled": True
+#                 },
+#                 {
+#                     "name": "dineIn",
+#                     "enabled": True
+#                 }
+#             ],
+#             "preOrderStatus":True,
+#             "qrKey": "57463274",
+#             "qrImage": "https://omniapictures.s3.ap-south-1.amazonaws.com/qrCodes/68a6b1ba89c43b6512ea7925.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250821T070818Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=AKIA2MVKJRWJKAZW67NQ%2F20250821%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c551179ce8dad1230a09e0e48109078e51b8a3de2f63be764a2e5b8fbf4b6357",
+#             "languageId": "686f510c6e7e978b9132a03e"
+#         }
 
-    print("\033[1;34mTESTING AREA UPDATED LIST !\033[0m")
-    area_update = requests.put(base_url + f"api/v1/masters/area/web/{company_id}/update-area/68a6b1ba89c43b6512ea7925",json=update_area_payload,headers=headers)
-    if area_update.status_code == 200 :
-        print("Area Updated Successfully..!")
-    else:
-        print("Area Updated Failed...! ",area_update.text,area_update.status_code)
+#     print("\033[1;34mTESTING AREA UPDATED LIST !\033[0m")
+#     area_update = requests.put(base_url + f"api/v1/masters/area/web/{company_id}/update-area/68a6b1ba89c43b6512ea7925",json=update_area_payload,headers=headers)
+#     if area_update.status_code == 200 :
+#         print("Area Updated Successfully..!")
+#     else:
+#         print("Area Updated Failed...! ",area_update.text,area_update.status_code)
 
 
 
@@ -272,11 +292,15 @@ else:
 
 # 6 : Area : Delete :
 
-    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/68a6daa489c43b6512ea79a5",headers=headers)
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id_delete}",headers=headers)
     if area_delete.status_code == 200 :
-        print("Area Deleted Successfully...!")
+        # print("Area Deleted Successfully...!")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 007 \033[0m")
+
     else: 
-        print("Area Deleted failed...!",area_delete.text) 
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid request or area ID : Test Case ID - 007 \033[0m")
+        # print("Area Deleted failed...!",area_delete.text) 
 
 
 
@@ -297,50 +321,133 @@ else:
 
 # 7 : : Building : Create :
 
-    print("\033[1;34mTESTING BUILDING CREATION !\033[0m")
+    # print("\033[1;34mTESTING BUILDING CREATION !\033[0m")
     create_building_payload = {
-      "name": "BuildTest4",
-      "code": 5
+      "name": "Thejaswini",
+      "code": 224
     }
 
 
     create_building = requests.post(base_url + f"api/v1/masters/building/web/{company_id}/create-building",json=create_building_payload,headers=headers)
     if create_building.status_code == 201:
         # print("Create Building Successfully..!")
-        print(f"\033[1;92m✅ TEST PASSED...! \033[0m")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 008 \033[0m")
 
     else:
-        print("Create Building Failed...!",create_building.text)
-        print(f"\033[1;91m❌ TEST FAILED...! : Failed Building Creation \033[0m")
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid data or missing fields : Test Case ID - 008 \033[0m")
+        # print(f"\033[1;91m❌ TEST FAILED...! : Failed Building Creation \033[0m",create_building.text)
 
 
 
 
 # 8 : Building : List ALL : 
 
-    print("\033[1;34mTESTING BUILDING LIST ALL!\033[0m")
+    # print("\033[1;34mGet BUILDING LIST !\033[0m")
     building_list_all = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list",headers=headers)
     if building_list_all.status_code == 200 :
         build_json=building_list_all.json()
-        print("Response JSON : ",json.dumps(build_json,indent=4))
-        print("Building Listed Successfully..!")
-        building_id=build_json['buildings'][0]['id']
-        print(building_id)
+        # print("Response JSON : ",json.dumps(build_json,indent=4))
+        # print("Building Listed Successfully..!")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 009 \033[0m")
+
+        building_id_detailed=build_json['buildings'][0]['id']
+        building_id_delete=build_json['buildings'][-1]['id']
+        # print(building_id)
 
     else:
-        print("Building Listed Failed..!")
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Request : Test Case ID - 009 \033[0m")
+        # print("Building Listed Failed..!")
 
 
 
 
-# # 9 : Area : Get Detailed List : 
+# # 9 : Buildng : Get Detailed List : 
 
-    print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
-    area_detailed_list = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list/{building_id}",headers=headers)
+    # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
+    area_detailed_list = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list?{building_id_detailed}",headers=headers)
     if area_detailed_list.status_code == 200:
-        print("Building Detailed List Listed")
-        area_detailed_json=area_detailed_list.json()
-        print(area_detailed_json)
+        # print("Building Detailed List Listed")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 010 \033[0m")
+        # print(area_detailed_json)
     else:
-        print("Building Detailed Listed Failed",area_detailed_list.text)
+        failed_count+=1
+        # print("Building Detailed Listed Failed",area_detailed_list.text,area_detailed_list.status_code)
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Input : Test Case ID - 010 \033[0m")
 
+
+
+
+# 10 : Building : update :pending
+
+
+
+
+
+
+
+
+
+# 11 : Building : Delete : 
+
+
+
+    building_delete = requests.patch(base_url + f"api/v1/masters/building/web/{company_id}/delete-building/{building_id_delete}",headers=headers)
+    if building_delete.status_code == 200 :
+        # print("Building Deleted Successfully...!")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 011 \033[0m")
+
+    else: 
+        failed_count+=1
+        # print("Building Deleted failed...! ",building_delete.text) 
+        print(f"\033[91m❌ TEST FAILED...! : Invalid request or area ID : Test Case ID - 011 \033[0m")
+
+
+
+
+
+
+
+
+# logout :  
+
+response_logout = requests.put(logout_url,headers=headers) 
+if response_logout.status_code == 200:
+    logout_json = response_logout.json()
+    # print("Response JSON:", json.dumps(logout_json, indent=4))
+    # print(f"Token (Logout): {token}")
+    print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 012 \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
+
+else:
+    failed_count+=1
+    # print(f"Logout failed with status code {response_logout.status_code}")
+    # print("Response:", response_logout.json())
+    print(f"\033[91m❌ TEST FAILED...! : Test Case ID - 012 : Error - Invalid or expired session token. \033[0m") # login failed so test passed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print(f"\033[1;34mTotal TEST FAILEDS  : {failed_count}/{total_count}\033[0m")
+
+if failed_count == 0:
+    print("\033[92m ✅ All TEST PASSED \033[0m")
