@@ -107,7 +107,7 @@ else:
       
     #   print("Parent Area Created Successfully..!",create_parentarea.text)
     #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
-       print(f"\033[92m✅ Test Case ID - 002 : TEST PASSED...! :  Area Creation (Parent) \033[0m")
+       print(f"\033[92m✅ Test Case ID - 002 : TEST PASSED...! : Area Creation (Parent) \033[0m")
     else:
        failed_count+=1
 
@@ -182,7 +182,7 @@ else:
 
     else:
        failed_count+=1
-       print(f"\033[91m❌  Test Case ID - 003 : TEST FAILED...! : Invalid data or missing fields :  Area Creation (Child) \033[0m")
+       print(f"\033[91m❌ Test Case ID - 003 : TEST FAILED...! : Invalid data or missing fields :  Area Creation (Child) \033[0m")
     #   print("Failed Creation.",create_childarea.text) 
 
 
@@ -205,7 +205,7 @@ else:
 
     else:
         failed_count+=1
-        print(f"\033[91m❌  Test Case ID - 004 : TEST FAILED...! : Invalid Request : Get Area List\033[0m")
+        print(f"\033[91m❌ Test Case ID - 004 : TEST FAILED...! : Invalid Request : Get Area List\033[0m")
 
         # print("Area Listed Failed..!")
 
@@ -300,11 +300,11 @@ else:
     area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id_delete}",headers=headers)
     if area_delete.status_code == 200 :
         # print("Area Deleted Successfully...!")
-        print(f"\033[92m✅  Test Case ID - 007  : TEST PASSED...! : Delete Area \033[0m")
+        print(f"\033[92m✅ Test Case ID - 007 : TEST PASSED...! : Delete Area \033[0m")
 
     else: 
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 007 :  TEST FAILED...! : Invalid request or area ID : Delete Area \033[0m")
+        print(f"\033[91m❌ Test Case ID - 007 : TEST FAILED...! : Invalid request or area ID : Delete Area \033[0m")
         # print("Area Deleted failed...!",area_delete.text) 
 
 
@@ -336,7 +336,7 @@ else:
     create_building = requests.post(base_url + f"api/v1/masters/building/web/{company_id}/create-building",json=create_building_payload,headers=headers)
     if create_building.status_code == 201:
         # print("Create Building Successfully..!")
-        print(f"\033[92m✅ Test Case ID - 008 : TEST PASSED...! :  Building Creation \033[0m")
+        print(f"\033[92m✅ Test Case ID - 008 : TEST PASSED...! : Building Creation \033[0m")
 
     else:
         failed_count+=1
@@ -356,7 +356,7 @@ else:
         build_json=building_list_all.json()
         # print("Response JSON : ",json.dumps(build_json,indent=4))
         # print("Building Listed Successfully..!")
-        print(f"\033[92m✅  Test Case ID - 009 :  TEST PASSED...! :  Get Building List \033[0m")
+        print(f"\033[92m✅ Test Case ID - 009 : TEST PASSED...! : Get Building List \033[0m")
 
         building_id_detailed=build_json['buildings'][0]['id']
         building_id_delete=build_json['buildings'][-1]['id']
@@ -364,7 +364,7 @@ else:
 
     else:
         failed_count+=1
-        print(f"\033[91m❌  Test Case ID - 009 :  TEST FAILED...! : Invalid Request :  Get Building List \033[0m")
+        print(f"\033[91m❌ Test Case ID - 009 : TEST FAILED...! : Invalid Request :  Get Building List \033[0m")
         # print("Building Listed Failed..!")
 
 
@@ -403,12 +403,12 @@ else:
     building_delete = requests.patch(base_url + f"api/v1/masters/building/web/{company_id}/delete-building/{building_id_delete}",headers=headers)
     if building_delete.status_code == 200 :
         # print("Building Deleted Successfully...!")
-        print(f"\033[92m✅  Test Case ID - 011  :  TEST PASSED...! : \033[0m")
+        print(f"\033[92m✅ Test Case ID - 011 : TEST PASSED...! : Delete Building \033[0m")
 
     else: 
         failed_count+=1
         # print("Building Deleted failed...! ",building_delete.text) 
-        print(f"\033[91m❌  Test Case ID - 011  : TEST FAILED...! : Invalid request or area ID : Delete Building \033[0m")
+        print(f"\033[91m❌ Test Case ID - 011 : TEST FAILED...! : Invalid request or area ID : Delete Building \033[0m")
 
 
 
@@ -440,11 +440,11 @@ else:
       
     #   print("Floor  Created Successfully..!",create_floor.text)
     #    print("Response JSON : ",json.dumps(create_floor_json,indent=4))
-       print(f"\033[92m✅ Test Case ID - 013  :  TEST PASSED...! : Floor Creation \033[0m")
+       print(f"\033[92m✅ Test Case ID - 013 : TEST PASSED...! : Floor Creation \033[0m")
     else:
        failed_count+=1
 
-       print(f"\033[91m❌ Test Case ID - 013  :  TEST FAILED...! : Invalid data or missing fields : Floor Creation \033[0m")
+       print(f"\033[91m❌ Test Case ID - 013 : TEST FAILED...! : Invalid data or missing fields : Floor Creation \033[0m")
  
     #    print("Failed Creation.",create_floor.text) 
 
@@ -464,7 +464,7 @@ else:
         floor_list_json=floor_list_all.json()
         # print("Response JSON : ",json.dumps(floor_list_json,indent=4))
         # print("Floor Listed Successfully..!")
-        print(f"\033[92m✅ Test Case ID - 014  :  TEST PASSED...! :  Get Floor List \033[0m")
+        print(f"\033[92m✅ Test Case ID - 014 : TEST PASSED...! : Get Floor List \033[0m")
 
         floor_id_detailed=floor_list_json['floors'][0]['id']
         floor_id=floor_list_json['floors'][-1]['id']
@@ -472,7 +472,7 @@ else:
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 014  :  TEST FAILED...! : Invalid Request : Get Floor List \033[0m")
+        print(f"\033[91m❌ Test Case ID - 014 : TEST FAILED...! : Invalid Request : Get Floor List \033[0m")
 
         # print("Floor Listed Failed..!",floor_list_all.text)
 
@@ -493,11 +493,11 @@ else:
         # print("Response JSON : ",json.dumps(floor_detailed_json,indent=4))
 
         # print(floor_detailed_json)
-        print(f"\033[92m✅ Test Case ID - 005  :  TEST PASSED...! : Get Detailed list \033[0m")
+        print(f"\033[92m✅ Test Case ID - 015 : TEST PASSED...! : Get Detailed list \033[0m")
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 005  :  TEST FAILED...! : Invalid Input : Get Detailed list \033[0m")
+        print(f"\033[91m❌ Test Case ID - 015 : TEST FAILED...! : Invalid Input : Get Detailed list \033[0m")
         # print("Floor Detailed Listed Failed",floor_detailed_list.text)
 
 
