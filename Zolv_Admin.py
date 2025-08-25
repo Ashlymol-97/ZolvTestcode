@@ -32,7 +32,7 @@ response_login = requests.post(login_url,json=login_payload)
 if response_login.status_code != 200:
     failed_count+=1
     print(f"\033[91m❌ TEST FAILED...! : Invalid Credentials : Test Case ID - 001\033[0m")
-            # print("Response:", response_login.json())
+    # print("Response:", response_login.json())
 else:
     response_json = response_login.json()
     # print(f"Login Successfull   with status code {response_login.status_code}",login_payload)
@@ -45,7 +45,7 @@ else:
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
     }
-    # print(f"Token (Login): {token}") 
+    print(f"Token (Login): {token}") 
 
 
 
@@ -212,6 +212,7 @@ else:
 
 
 
+
 # # 4 : Area : Get Detailed List : 
 
     # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
@@ -226,6 +227,10 @@ else:
         failed_count+=1
         print(f"\033[91m❌ TEST FAILED...! : Invalid Input : Test Case ID - 005\033[0m")
         # print("Area Detailed Listed Failed",area_detailed_list.text)
+
+
+
+
 
 
 
@@ -410,26 +415,36 @@ else:
 
 
 
-# logout :  
-
-response_logout = requests.put(logout_url,headers=headers) 
-if response_logout.status_code == 200:
-    logout_json = response_logout.json()
-    # print("Response JSON:", json.dumps(logout_json, indent=4))
-    # print(f"Token (Logout): {token}")
-    print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 012 \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
-
-else:
-    failed_count+=1
-    # print(f"Logout failed with status code {response_logout.status_code}")
-    # print("Response:", response_logout.json())
-    print(f"\033[91m❌ TEST FAILED...! : Test Case ID - 012 : Error - Invalid or expired session token. \033[0m") # login failed so test passed
 
 
 
 
 
 
+# ********************************************************Floor *******************************************
+
+
+
+# 13 : Create Floor : 
+
+    floor_payload={
+    "name": "second floor",
+    "code": 14,
+    "buildingId": "68709372293ae6389032a058"
+    }
+    create_floor = requests.post(base_url + f"api/v1/masters/floor/web/{company_id}/create-floor",json=floor_payload,headers=headers)
+    if create_floor.status_code == 201:
+       create_floor_json=create_floor.json()
+      
+    #   print("Floor  Created Successfully..!",create_floor.text)
+    #    print("Response JSON : ",json.dumps(create_floor_json,indent=4))
+       print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 013\033[0m")
+    else:
+       failed_count+=1
+
+       print(f"\033[91m❌ TEST FAILED...! : Invalid data or missing fields : Test Case ID - 013\033[0m")
+ 
+       print("Failed Creation.",create_floor.text) 
 
 
 
@@ -438,6 +453,78 @@ else:
 
 
 
+
+# 14 : Floor : List ALL : 
+
+    # print("\033[1;34mGet Area List!\033[0m")
+    floor_list_all = requests.get(base_url + f"api/v1/masters/floor/web/{company_id}/get-floor-list",headers=headers)
+    if floor_list_all.status_code == 201 :
+        floor_list_json=floor_list_all.json()
+        # print("Response JSON : ",json.dumps(floor_list_json,indent=4))
+        # print("Floor Listed Successfully..!")
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 014 \033[0m")
+
+        floor_id_detailed=floor_list_json['floors'][0]['id']
+        floor_id=floor_list_json['floors'][-1]['id']
+        print(floor_id_detailed)
+
+    else:
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Request : Test Case ID - 014 \033[0m")
+
+        # print("Floor Listed Failed..!",floor_list_all.text)
+
+
+
+
+
+
+
+# # 15 : Floor : Get Detailed List : 
+
+    # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
+    floor_detailed_list = requests.get(base_url + f"api/v1/masters/floor/web/{company_id}/get-floor-list?{floor_id_detailed}",headers=headers)
+    if floor_detailed_list.status_code == 201:
+        # print("Floor Detailed List Listed")
+        floor_detailed_json=floor_detailed_list.json()
+
+        print("Response JSON : ",json.dumps(floor_detailed_json,indent=4))
+
+        # print(floor_detailed_json)
+        print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 005 \033[0m")
+
+    else:
+        failed_count+=1
+        print(f"\033[91m❌ TEST FAILED...! : Invalid Input : Test Case ID - 005\033[0m")
+        print("Floor Detailed Listed Failed",floor_detailed_list.text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # logout :  
+
+# response_logout = requests.put(logout_url,headers=headers) 
+# if response_logout.status_code == 200:
+#     logout_json = response_logout.json()
+#     # print("Response JSON:", json.dumps(logout_json, indent=4))
+#     print(f"Token (Logout): {token}")
+#     print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 012 \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
+
+# else:
+#     failed_count+=1
+#     # print(f"Logout failed with status code {response_logout.status_code}")
+#     # print("Response:", response_logout.json())
+#     print(f"\033[91m❌ TEST FAILED...! : Test Case ID - 012 : Error - Invalid or expired session token. \033[0m") # login failed so test passed
 
 
 
