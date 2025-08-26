@@ -43,7 +43,6 @@ else:
     print(f"\033[92m✅ TEST PASSED...! : Test Case ID - 001 \033[0m")
     headers = {
                 "Authorization": f"Bearer {token}",
-                "Content-Type": "application/json"
     }
     # print(f"Token (Login): {token}") 
 
@@ -54,65 +53,161 @@ else:
 
 
 
-# # 5 : Area : Update List : Pending
+# # # 5 : Area : Update List : Pending
 
     print("\033[1;34mTESTING AREA UPDATION !\033[0m")
 
-    update_area_payload = {
-            
-            "name": "area",
-            "code": 80,
-            "areaType": "parent",
-            "parentAreaId": "68a6b1ba89c43b6512ea7925",
-            "buildingId": "68709372293ae6389032a058",
-            "floorId": "68709372293ae6389032a05a",
-            "isActive": True,
-            "moduleGroupId": "68709372293ae6389032a05b",
-            "paymentModes": [
-                {
-                    "name": "paymentGateway",
-                    "enabled": True
-                },
-                {
-                    "name": "payOnDelivery",
-                    "enabled": True
-                },
-                {
-                    "name": "roomCredit",
-                    "enabled": True
-                }
-            ],
-            "deliveryModes": [
-                {
-                    "name": "roomDelivery",
-                    "enabled": True
-                },
-                {
-                    "name": "takeAway",
-                    "enabled": True
-                },
-                {
-                    "name": "dineIn",
-                    "enabled": True
-                }
-            ],
-            "preOrderStatus":True,
-            "qrKey": "57463274",
-            "qrImage": "https://omniapictures.s3.ap-south-1.amazonaws.com/qrCodes/68a6b1ba89c43b6512ea7925.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250821T070818Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=AKIA2MVKJRWJKAZW67NQ%2F20250821%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c551179ce8dad1230a09e0e48109078e51b8a3de2f63be764a2e5b8fbf4b6357",
-            "languageId": "686f510c6e7e978b9132a03e"
+    update_area_payload = {    
+        "name"  : "areas",
+        "code"  : 80,
+        "areaType" : "parent",
+        "isActive" : True,
+        "buildingId" : "68709372293ae6389032a058",
+        "floorId" : "68709372293ae6389032a05a",
+        "preOrderStatus" : True,
+        "parentAreaId" : "68a6b1ba89c43b6512ea7925",
+        "moduleGroupId" : "68709372293ae6389032a05b",
+        "qrKey" : 57463274,
+        "languageId" : "686f510c6e7e978b9132a03e",
+        "deliveryModes[0].name" : "roomDelivery",
+        "deliveryModes[0].enabled" : True,
+        "deliveryModes[1].name" : "takeAway",
+        "deliveryModes[1].enabled" : True,
+        # "deliveryModes[2].name" : "dineIn",
+        # "deliveryModes[2].enabled" : True,
+        "paymentModes[0].name" : "paymentGateway",
+        "paymentModes[0].enabled" : True,
+        "paymentModes[1].name" : "payOnDelivery",
+        "paymentModes[1].enabled" : True,
+        "paymentModes[2].name" : "roomCredit",
+        "paymentModes[2].enabled" : True,
         }
-    
-    form_data = {}
-    for key, value in update_area_payload.items():
-        if isinstance(value, (dict, list)):
-            form_data[key] = str(value)  # or json.dumps(value) for proper JSON string
-        else:
-            form_data[key] = value
+    files = {
+        "image": ("QRcodeimage.png", open("C:/Users/SMM-06/Downloads/QRcodeimage.png", "rb"),"image/png")
+    }
+ 
 
     print("\033[1;34mTESTING AREA UPDATED LIST !\033[0m")
-    area_update = requests.put(base_url + f"api/v1/masters/area/web/{company_id}/update-area/68ac10a1872a953f691153c3",data=form_data,headers=headers)
+
+    area_update = requests.put(
+        base_url + f"api/v1/masters/area/web/{company_id}/update-area/68ac10a1872a953f691153c3",
+        data=update_area_payload,
+        headers=headers
+    )
     if area_update.status_code == 200 :
         print("Area Updated Successfully..!")
     else:
-        print("Area Updated Failed...! ",area_update.text,area_update.status_code)
+        print("Area Updated Failed...! ",area_update.text)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #  5 : Area : Update List : Pending
+
+#     print("\033[1;34mTESTING AREA UPDATION !\033[0m")
+
+#     update_area_payload = {    
+#         "name"  : "First",
+#         "code"  : 579,
+#         "areaType" : "child",
+#         "isActive" : True,
+#         "buildingId" : "68709372293ae6389032a058",
+#         "floorId" : "68709372293ae6389032a05a",
+#         "preOrderStatus" : True,
+#         "parentAreaId" : "68a5af7a03cfe84816ecd0d7",
+#         "moduleGroupId" : "68709372293ae6389032a05b",
+#         "qrKey" : 70869307,
+#         "languageId" : "686f510c6e7e978b9132a03e",
+#         "deliveryModes[0].name" : "roomDelivery",
+#         "deliveryModes[0].enabled" : True,
+#         "deliveryModes[1].name" : "takeAway",
+#         "deliveryModes[1].enabled" : True,
+#         "deliveryModes[2].name" : "dineIn",
+#         "deliveryModes[2].enabled" : True,
+#         "paymentModes[0].name" : "paymentGateway",
+#         "paymentModes[0].enabled" : True,
+#         "paymentModes[1].name" : "payOnDelivery",
+#         "paymentModes[1].enabled" : True,
+#         "paymentModes[2].name" : "roomCredit",
+#         "paymentModes[2].enabled" : True,
+#         }
+#     files = {
+#         "image": ("QRcodeimage.png", open("C:/Users/SMM-06/Downloads/QRcodeimage.png", "rb"),"image/png")
+#     }
+ 
+
+#     print("\033[1;34mTESTING AREA UPDATED LIST !\033[0m")
+
+#     area_update = requests.put(
+#         base_url + f"api/v1/masters/area/web/{company_id}/update-area/68ac10a1872a953f691153c3",
+#         data=update_area_payload,
+#         headers=headers
+#     )
+#     if area_update.status_code == 200 :
+#         print("Area Updated Successfully..!")
+#     else:
+#         print("Area Updated Failed...! ",area_update.text)
+
+# # C:\Users\SMM-06\Downloads\QRcodeimage.png
+
+
+
+
+
+
+
+# # area_update = requests.put(
+# #     base_url + f"api/v1/masters/area/web/{company_id}/update-area/68ac10a1872a953f691153c3",
+#     data={"payload": json.dumps(update_area_payload)},
+#     headers=headers,
+#     files=files
+# )
