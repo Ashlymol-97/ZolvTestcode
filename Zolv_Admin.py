@@ -17,15 +17,15 @@ logout_url="https://qa-admin.zolv.health/api/v1/user/logout"
 
 
 login_payload = {
-    "loginId": "AutotestAdmin",
+    "loginId": "AshlyAdmin",
     "password": "Smm@1234"
 }
 
 
 failed_count=0
-total_count=12
+total_count=23
     
-# Login : 
+# 1 : Login : 
 
 # print("\033[1;34mTESTING LOGIN!\033[0m")
 response_login = requests.post(login_url,json=login_payload)
@@ -51,12 +51,12 @@ else:
 
 
 
-# 1 : Area : Create Parent :
+# 2 : Area : Create Parent :
 
     # print("\033[1;34mTESTING AREA CREATION !\033[0m")
     # print("\033[1;34mTESTING PARENT AREA CREATION !\033[0m")
 
-
+    area_id =0
     create_parentarea_payload = {
         "name": "Hotels",
         "code":786,
@@ -104,7 +104,8 @@ else:
     create_parentarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_parentarea_payload,headers=headers)
     if create_parentarea.status_code == 200:
        createparent_json=create_parentarea.json()
-      
+       area_id = createparent_json['id']
+        
     #   print("Parent Area Created Successfully..!",create_parentarea.text)
     #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
        print(f"\033[92m✅ Test Case ID - 002 : Area Creation (Parent)      : TEST PASSED...!  \033[0m")
@@ -124,9 +125,9 @@ else:
 # 3 : Area create Child area :
 
     # print("\033[1;34mTESTING CHILD AREA CREATION !\033[0m")
-
+    child_area_id=0
     create_childarea_payload = {
-        "name": "First Floors",
+        "name": "First Floor",
         "code": 579,
         "areaType": "child",
         "parentAreaId":"68a5af7a03cfe84816ecd0d7", #if choose child area in area type, parentarea id field is mandatory .
@@ -174,8 +175,8 @@ else:
     if create_childarea.status_code == 200:
        createchild_json=create_childarea.json()
        print(f"\033[92m✅ Test Case ID - 003 : Area Creation (Child)       : TEST PASSED...! \033[0m")
-    #   area_id = createparent_json.get('area', {}).get('id')
-    #   print(area_id)
+       child_area_id = createchild_json['id']
+
 
     #   print("Child Area Created Successfully..!",create_childarea.text)
       # print("Response JSON : ",json.dumps(createchild_json,indent=4))
@@ -199,9 +200,9 @@ else:
         # print("Area Listed Successfully..!")
         print(f"\033[92m✅ Test Case ID - 004 : Get Area List               : TEST PASSED...! \033[0m")
 
-        area_id_detailed=list_json['areas'][-1]['id']
-        area_id_parentdelete=list_json['areas'][-1]['id']
-        area_id_childdelete=list_json['areas'][-2]['id']
+        # area_id_detailed=list_json['areas'][-1]['id']
+        # area_id_parentdelete=list_json['areas'][-1]['id']
+        # area_id_childdelete=list_json['areas'][-2]['id']
         # print(area_id_delete)
 
     else:
@@ -219,7 +220,7 @@ else:
 # # 5 : Area : Get Detailed List : 
 
     # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
-    area_detailed_list = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area/{area_id_detailed}",headers=headers)
+    area_detailed_list = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area/{area_id}",headers=headers)
     if area_detailed_list.status_code == 200:
         # print("Area Detailed List Listed")
         area_detailed_json=area_detailed_list.json()
@@ -301,7 +302,7 @@ else:
 
 # 7 : Area : Parent Area :  Delete :
 
-    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id_parentdelete}",headers=headers)
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id}",headers=headers)
     if area_delete.status_code == 200 :
         # print("Area Deleted Successfully...!")
         print(f"\033[92m✅ Test Case ID - 007 : Delete Area (Parent)        : TEST PASSED...!  \033[0m")
@@ -318,7 +319,7 @@ else:
 
 # 8 : Area : Child Area :  Delete :
 
-    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id_childdelete}",headers=headers)
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{child_area_id}",headers=headers)
     if area_delete.status_code == 200 :
         # print("Area Deleted Successfully...!")
         print(f"\033[92m✅ Test Case ID - 008 : Delete Area (Child)         : TEST PASSED...!  \033[0m")
@@ -354,6 +355,8 @@ else:
     create_building = requests.post(base_url + f"api/v1/masters/building/web/{company_id}/create-building",json=create_building_payload,headers=headers)
     if create_building.status_code == 201:
         building_id_json=create_building.json()
+        building_id = building_id_json['id']
+
         # print("Response JSON : ",json.dumps(building_id_json,indent=4))
         # print("Create Building Successfully..!")
         print(f"\033[92m✅ Test Case ID - 009 : Building Creation           : TEST PASSED...! \033[0m")
@@ -377,9 +380,6 @@ else:
         # print("Building Listed Successfully..!")
         print(f"\033[92m✅ Test Case ID - 010 : Get Building List           : TEST PASSED...! \033[0m")
         # print("Response JSON : ",json.dumps(build_json,indent=4))
-        building_id_detailed=build_json['buildings'][-1]['id']
-        building_id_delete=build_json['buildings'][-1]['id']
-        # print(building_id)
 
     else:
         failed_count+=1
@@ -394,7 +394,7 @@ else:
 # # 11 : Buildng : Get Detailed List : 
 
     # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
-    area_detailed_list = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list?buildingId={building_id_detailed}",headers=headers)
+    area_detailed_list = requests.get(base_url + f"api/v1/masters/building/web/{company_id}/get-building-list?buildingId={building_id}",headers=headers)
     if area_detailed_list.status_code == 200:
         area_detailed_json=area_detailed_list.json()
         # print("Building Detailed List Listed")
@@ -408,7 +408,29 @@ else:
 
 
 
+
+
+
 # 12 : Building : update :pending
+
+
+    update_building_payload = {
+        "name": "Block 3",
+        "code": 224
+    }
+
+    building_update = requests.put(
+        base_url + f"api/v1/masters/building/web/{company_id}/update-building/{building_id}",
+        json=update_building_payload, 
+        headers=headers
+    )
+
+    if building_update.status_code == 200:
+        building_update_json = building_update.json()
+        print(f"\033[92m✅ Test Case ID - 012 : Building Updated            : TEST PASSED...! \033[0m")
+    else: 
+        failed_count += 1
+        print(f"\033[91m❌ Test Case ID - 012 : Building Updated            : TEST FAILED...! : Invalid Input \033[0m")
 
 
 
@@ -422,7 +444,7 @@ else:
 
 
 
-    building_delete = requests.patch(base_url + f"api/v1/masters/building/web/{company_id}/delete-building/{building_id_delete}",headers=headers)
+    building_delete = requests.patch(base_url + f"api/v1/masters/building/web/{company_id}/delete-building/{building_id}",headers=headers)
     if building_delete.status_code == 200 :
         # print("Building Deleted Successfully...!")
         print(f"\033[92m✅ Test Case ID - 013 : Delete Building             : TEST PASSED...! \033[0m")
@@ -459,7 +481,7 @@ else:
     create_floor = requests.post(base_url + f"api/v1/masters/floor/web/{company_id}/create-floor",json=floor_payload,headers=headers)
     if create_floor.status_code == 201:
        create_floor_json=create_floor.json()
-      
+       floor_id = create_floor_json['id']
     #   print("Floor  Created Successfully..!",create_floor.text)
     #    print("Response JSON : ",json.dumps(create_floor_json,indent=4))
        print(f"\033[92m✅ Test Case ID - 014 : Floor Creation              : TEST PASSED...! \033[0m")
@@ -488,8 +510,8 @@ else:
         # print("Floor Listed Successfully..!")
         print(f"\033[92m✅ Test Case ID - 015 : Get Floor List              : TEST PASSED...! \033[0m")
 
-        floor_id_detailed=floor_list_json['floors'][-1]['id']
-        floor_id_delete=floor_list_json['floors'][-1]['id']
+        # floor_id_detailed=floor_list_json['floors'][-1]['id']
+        # floor_id_delete=floor_list_json['floors'][-1]['id']
         # print(floor_id_detailed)
 
     else:
@@ -507,7 +529,7 @@ else:
 # # 16 : Floor : Get Detailed List : 
 
     # print("\033[1;34mTESTING AREA DETAILED LIST !\033[0m")
-    floor_detailed_list = requests.get(base_url + f"api/v1/masters/floor/web/{company_id}/get-floor-list?floorId={floor_id_detailed}",headers=headers)
+    floor_detailed_list = requests.get(base_url + f"api/v1/masters/floor/web/{company_id}/get-floor-list?floorId={floor_id}",headers=headers)
     if floor_detailed_list.status_code == 201:
         # print("Floor Detailed List Listed")
         floor_detailed_json=floor_detailed_list.json()
@@ -533,7 +555,7 @@ else:
     }
 
     floor_update = requests.put(
-        base_url + f"api/v1/masters/floor/web/{company_id}/update-floor/{floor_id_detailed}",
+        base_url + f"api/v1/masters/floor/web/{company_id}/update-floor/{floor_id}",
         json=update_floor_payload,  # Corrected here
         headers=headers
     )
@@ -554,7 +576,7 @@ else:
 
 # # 18 : Floor  :  Delete :
 
-    floor_delete = requests.patch(base_url + f"api/v1/masters/floor/web/{company_id}/delete-floor/{floor_id_delete}",headers=headers)
+    floor_delete = requests.patch(base_url + f"api/v1/masters/floor/web/{company_id}/delete-floor/{floor_id}",headers=headers)
     if floor_delete.status_code == 200 :
         # print("Floor Deleted Successfully...!")
         print(f"\033[92m✅ Test Case ID - 018 : Floor Deleted               : TEST PASSED...!  \033[0m")
