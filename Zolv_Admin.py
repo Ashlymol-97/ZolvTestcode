@@ -127,7 +127,7 @@ else:
 # ******************************Time Delay *********************************************
 
     import time
-    wait_time = 25
+    wait_time = 20
     # Create area here...
     print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
     # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
@@ -407,9 +407,9 @@ else:
 # ******************************Time Delay *********************************************
 
 
-    wait_time = 25
+    wait_time = 20
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
     # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
     # print(time.sleep())
     # # Then delete area
@@ -554,9 +554,9 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    wait_time = 25
+    wait_time = 20
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
     # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
     # print(time.sleep())
     # # Then delete area
@@ -704,9 +704,9 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    wait_time = 25
+    wait_time = 20
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
     # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
     # print(time.sleep())
     # # Then delete area
