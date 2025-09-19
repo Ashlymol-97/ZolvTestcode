@@ -105,6 +105,7 @@ else:
     if create_parentarea.status_code == 200:
        createparent_json=create_parentarea.json()
        area_id = createparent_json['id']
+    #    area_name=create_parentarea
     
     #    print("Parent Area Created Successfully..!",create_parentarea.text,area_id)
     #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
@@ -129,7 +130,7 @@ else:
 
     # Create area here...
     print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
-    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+    time.sleep(30)   # wait 3 seconds, adjust based on system behavior
 
     # Then delete area
 
