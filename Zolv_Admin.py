@@ -127,12 +127,17 @@ else:
 # ******************************Time Delay *********************************************
 
     import time
-
+    wait_time = 25
     # Create area here...
     print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
-    time.sleep(30)   # wait 3 seconds, adjust based on system behavior
+    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # print(time.sleep())
+    # # Then delete area
+    for remaining in range(wait_time, 0, -1):
+        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+        time.sleep(1)
 
-    # Then delete area
+    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -401,13 +406,20 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    import time
 
+    wait_time = 25
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
-    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # print(time.sleep())
+    # # Then delete area
+    for remaining in range(wait_time, 0, -1):
+        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+        time.sleep(1)
 
-    # Then delete area
+    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+
+
 
 
 
@@ -542,15 +554,17 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    import time
-
+    wait_time = 25
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
-    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # print(time.sleep())
+    # # Then delete area
+    for remaining in range(wait_time, 0, -1):
+        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+        time.sleep(1)
 
-    # Then delete area
-
-
+    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -690,13 +704,17 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    import time
-
+    wait_time = 25
     # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
-    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # print(time.sleep())
+    # # Then delete area
+    for remaining in range(wait_time, 0, -1):
+        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+        time.sleep(1)
 
-    # Then delete area
+    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
