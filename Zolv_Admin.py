@@ -105,8 +105,8 @@ else:
     if create_parentarea.status_code == 200:
        createparent_json=create_parentarea.json()
        area_id = createparent_json['id']
-        
-    #   print("Parent Area Created Successfully..!",create_parentarea.text)
+    
+    #    print("Parent Area Created Successfully..!",create_parentarea.text,area_id)
     #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
        print(f"\033[92m✅ Test Case ID - 002 : Area Creation (Parent)      : TEST PASSED...!  \033[0m")
     else:
@@ -114,7 +114,24 @@ else:
 
        print(f"\033[91m❌ Test Case ID - 002 : Area Creation (Parent)      : TEST FAILED...! : Invalid data or missing fields  \033[0m")
  
-    #    print("Failed Creation.",create_parentarea.text) 
+       print("Failed Creation.",create_parentarea.text) 
+
+
+
+
+
+
+
+
+# ******************************Time Delay *********************************************
+
+    import time
+
+    # Create area here...
+    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+
+    # Then delete area
 
 
 
@@ -130,7 +147,7 @@ else:
         "name": "First Floor",
         "code": 579,
         "areaType": "child",
-        "parentAreaId":"68a5af7a03cfe84816ecd0d7", #if choose child area in area type, parentarea id field is mandatory .
+        "parentAreaId":area_id, #if choose child area in area type, parentarea id field is mandatory .
         "buildingId": "68709372293ae6389032a058",
         "floorId": "68709372293ae6389032a05a",
         "isActive": True,
@@ -226,11 +243,11 @@ else:
         area_detailed_json=area_detailed_list.json()
         # print("Response JSON : ",json.dumps(area_detailed_json,indent=4))
 
-        print(f"\033[92m✅ Test Case ID - 005 : Get Area Detailed List      : TEST PASSED...! \033[0m")
+        print(f"\033[92m✅ Test Case ID - 005 : Get Area Detailed           : TEST PASSED...! \033[0m")
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 005 : Get Detailed Area List      : TEST FAILED...! : Invalid Input \033[0m")
+        print(f"\033[91m❌ Test Case ID - 005 : Get Area Detailed           : TEST FAILED...! : Invalid Input \033[0m")
         # print("Area Detailed Listed Failed",area_detailed_list.text)
 
 
@@ -300,34 +317,43 @@ else:
 
 
 
-# 7 : Area : Parent Area :  Delete :
+
+# 7: Area : Child Area : Delete : 
+
+
+
+
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{child_area_id}",headers=headers)
+    if area_delete.status_code == 200 :
+        # print("Child Area Deleted Successfully...!")
+        print(f"\033[92m✅ Test Case ID - 007 : Delete Area (Child)         : TEST PASSED...!  \033[0m")
+
+    else: 
+        failed_count+=1
+        print(f"\033[91m❌ Test Case ID - 007 : Delete Area (Child)         : TEST FAILED...! : Invalid request or area ID \033[0m")
+        # print("Child Area Deleted failed...!",area_delete.text) 
+
+
+
+
+
+
+
+
+
+# 8 : Area : Parent Area :  Delete :
 
     area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id}",headers=headers)
     if area_delete.status_code == 200 :
         # print("Area Deleted Successfully...!")
-        print(f"\033[92m✅ Test Case ID - 007 : Delete Area (Parent)        : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - 008 : Delete Area (Parent)        : TEST PASSED...!  \033[0m")
 
     else: 
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 007 : Delete Area (Parent)        : TEST FAILED...! : Invalid request or area ID \033[0m")
+        print(f"\033[91m❌ Test Case ID - 008 : Delete Area (Parent)        : TEST FAILED...! : Invalid request or area ID \033[0m")
         # print("Area Deleted failed...!",area_delete.text) 
 
 
-
-
-
-
-# 8 : Area : Child Area :  Delete :
-
-    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{child_area_id}",headers=headers)
-    if area_delete.status_code == 200 :
-        # print("Area Deleted Successfully...!")
-        print(f"\033[92m✅ Test Case ID - 008 : Delete Area (Child)         : TEST PASSED...!  \033[0m")
-
-    else: 
-        failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 008 : Delete Area (Child)         : TEST FAILED...! : Invalid request or area ID  \033[0m")
-        # print("Area Deleted failed...!",area_delete.text) 
 
 
 
@@ -371,6 +397,20 @@ else:
 
 
 
+
+# ******************************Time Delay *********************************************
+
+    import time
+
+    # Create area here...
+    print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
+    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+
+    # Then delete area
+
+
+
+
 # 10 : Building : List ALL : 
 
     # print("\033[1;34mGet BUILDING LIST !\033[0m")
@@ -398,12 +438,12 @@ else:
     if area_detailed_list.status_code == 200:
         area_detailed_json=area_detailed_list.json()
         # print("Building Detailed List Listed")
-        print(f"\033[92m✅ Test Case ID - 011 : Get detailed Building List  : TEST PASSED...! \033[0m")
+        print(f"\033[92m✅ Test Case ID - 011 : Get  Building detailed      : TEST PASSED...! \033[0m")
         # print("Response JSON : ",json.dumps(area_detailed_json,indent=4))
     else:
         failed_count+=1
         # print("Building Detailed Listed Failed",area_detailed_list.text,area_detailed_list.status_code)
-        print(f"\033[91m❌ Test Case ID - 011 : Get Detailed Building List : TEST FAILED...! : Invalid Input \033[0m")
+        print(f"\033[91m❌ Test Case ID - 011 : Get  Building Detailed      : TEST FAILED...! : Invalid Input \033[0m")
 
 
 
@@ -499,6 +539,22 @@ else:
 
 
 
+# ******************************Time Delay *********************************************
+
+    import time
+
+    # Create area here...
+    print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
+    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+
+    # Then delete area
+
+
+
+
+
+
+
 
 # 15 : Floor : List ALL : 
 
@@ -520,7 +576,7 @@ else:
 
         # print("Floor Listed Failed..!",floor_list_all.text)
 
-
+ 
 
 
 
@@ -533,12 +589,12 @@ else:
     if floor_detailed_list.status_code == 201:
         # print("Floor Detailed List Listed")
         floor_detailed_json=floor_detailed_list.json()
-        print(f"\033[92m✅ Test Case ID - 016 : Get Detailed Floor list     : TEST PASSED...! \033[0m")
+        print(f"\033[92m✅ Test Case ID - 016 : Get  Floor  Detailed        : TEST PASSED...! \033[0m")
         # print("Response JSON : ",json.dumps(floor_detailed_json,indent=4))
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 016 : Get Detailed Floor list     : TEST FAILED...! : Invalid Input \033[0m")
+        print(f"\033[91m❌ Test Case ID - 016 : Get  Floor  Detailed        : TEST FAILED...! : Invalid Input \033[0m")
         # print("Floor Detailed Listed Failed",floor_detailed_list.text)
 
 
@@ -565,7 +621,7 @@ else:
         print(f"\033[92m✅ Test Case ID - 017 : Floor Updated               : TEST PASSED...! \033[0m")
     else: 
         failed_count += 1
-        print(f"\033[91m❌ Test Case ID - 017 : Floor Updated : TEST FAILED...! : Invalid Input \033[0m")
+        print(f"\033[91m❌ Test Case ID - 017 : Floor Updated               : TEST FAILED...! : Invalid Input \033[0m")
 
 
 
@@ -630,6 +686,21 @@ else:
 
 
 
+
+# ******************************Time Delay *********************************************
+
+    import time
+
+    # Create area here...
+    print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
+    time.sleep(10)   # wait 3 seconds, adjust based on system behavior
+
+    # Then delete area
+
+
+
+
+
 # 20 : Department : List ALL : 
 
     # print("\033[1;34mGet Department List!\033[0m")
@@ -643,7 +714,7 @@ else:
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 020 : Get Department List          : TEST FAILED...! : Invalid Request \033[0m")
+        print(f"\033[91m❌ Test Case ID - 020 : Get Department List         : TEST FAILED...! : Invalid Request \033[0m")
         # print("Department Listed Failed..!",dep_list_all.text)
 
 
@@ -659,12 +730,12 @@ else:
     if dep_detailed_list.status_code == 200:
         # print("Floor Detailed List Listed")
         dep_detailed_json=dep_detailed_list.json()
-        print(f"\033[92m✅ Test Case ID - 021 : Get Detailed Floor list     : TEST PASSED...! \033[0m")
+        print(f"\033[92m✅ Test Case ID - 021 : Get  Floor Detailed         : TEST PASSED...! \033[0m")
         # print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - 021 : Get Detailed Floor list     : TEST FAILED...! : Invalid Input \033[0m")
+        print(f"\033[91m❌ Test Case ID - 021 : Get  Floor  Detailed        : TEST FAILED...! : Invalid Input \033[0m")
         # print("Floor Detailed Listed Failed",dep_detailed_list.text)
 
 
@@ -692,7 +763,7 @@ else:
         print(f"\033[92m✅ Test Case ID - 022 : Department Updated          : TEST PASSED...! \033[0m")
     else: 
         failed_count += 1
-        print(f"\033[91m❌ Test Case ID - 022 : Department Updated          : TEST FAILED...! : Invalid Input \033[0m",dep_update.text)
+        print(f"\033[91m❌ Test Case ID - 022 : Department Updated          : TEST FAILED...! : Invalid Input \033[0m")
 
 
 
@@ -718,26 +789,20 @@ else:
 
 
 
+# 17 :logout :  
 
+response_logout = requests.put(logout_url,headers=headers) 
+if response_logout.status_code == 200:
+    logout_json = response_logout.json()
+    # print("Response JSON:", json.dumps(logout_json, indent=4))
+    # print(f"Token (Logout): {token}")
+    print(f"\033[92m✅ Test Case ID - 012 : Logout                      : TEST PASSED...! \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
 
-
-
-
-
-# # 17 :logout :  
-
-# response_logout = requests.put(logout_url,headers=headers) 
-# if response_logout.status_code == 200:
-#     logout_json = response_logout.json()
-#     # print("Response JSON:", json.dumps(logout_json, indent=4))
-#     print(f"Token (Logout): {token}")
-#     print(f"\033[92m✅ Test Case ID - 012 : Logout : TEST PASSED...! \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
-
-# else:
-#     failed_count+=1
-#     # print(f"Logout failed with status code {response_logout.status_code}")
-#     # print("Response:", response_logout.json())
-#     print(f"\033[91m❌ Test Case ID - 012  : Logout :  TEST FAILED...! :  Error - Invalid or expired session token. \033[0m") # login failed so test passed
+else:
+    failed_count+=1
+    # print(f"Logout failed with status code {response_logout.status_code}")
+    # print("Response:", response_logout.json())
+    print(f"\033[91m❌ Test Case ID - 012  : Logout                     :  TEST FAILED...! :  Error - Invalid or expired session token. \033[0m") # login failed so test passed
 
 
 
