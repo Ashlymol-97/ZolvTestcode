@@ -95,7 +95,7 @@ else:
               },
               {
                   "name": "dineIn",
-                  "enabled": True
+                  "enabled": True   
               }
           ],
         "preOrderStatus": False
