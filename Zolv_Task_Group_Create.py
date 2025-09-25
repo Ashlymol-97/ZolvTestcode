@@ -41,7 +41,7 @@ if response_login.status_code == 200:
     token= response_json.get('token',{}).get('token')
     company_id=response_json['company']['id']
     name=response_json.get('name')
-    print(f"\033[92m✅ Test Case ID - 001 : TEST PASSED...! : \033[0m")
+    # print(f"\033[92m✅ Test Case ID - 001 : TEST PASSED...! : \033[0m")
     headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
@@ -51,7 +51,7 @@ if response_login.status_code == 200:
 
 
     create_task_group_payload ={
-        "name": "Task Group89",
+        "name": "Task Group785",
         "remarks":"remart",
         "isActive":to_bool(False)
     }
@@ -64,10 +64,11 @@ if response_login.status_code == 200:
         # print(task_group_id)
         print(f"\033[92m✅ Test Case ID - 002 : Task Group Creation   : TEST PASSED...!  \033[0m")
     else:
-        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m")
+        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Task group with the same name exists \033[0m")
 
 
 else:
+    response_login.text
     print(f"\033[91m❌ Test Case ID - 001 : TEST FAILED...! : Error - Invalid Credentials \033[0m")
 
 

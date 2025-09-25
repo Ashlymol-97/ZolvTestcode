@@ -33,7 +33,7 @@ if response_login.status_code == 200:
     token= response_json.get('token',{}).get('token')
     company_id=response_json['company']['id']
     name=response_json.get('name')
-    print(f"\033[92m✅ Test Case ID - 001 : TEST PASSED...! : \033[0m")
+    # print(f"\033[92m✅ Test Case ID - 001 : TEST PASSED...! : \033[0m")
     headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
@@ -44,8 +44,8 @@ if response_login.status_code == 200:
     response_Task_Group_list = requests.get(base_url + f"api/v1/masters/task-group/web/{company_id}/get-task-group-list",headers=headers)
     if response_Task_Group_list.status_code == 200:
         response_Task_Group_list_json = response_Task_Group_list.json()
-        print(f"\033[1;92m Task Group List Listed successfully.\033[0m")
-        print("Response JSON:", json.dumps(response_Task_Group_list_json, indent=4))
+        # print(f"\033[1;92m Task Group List Listed successfully.\033[0m")
+        print(f"\033[92m✅ Test Case ID - 004 : Task Group List   : TEST PASSED...!  \033[0m")
 
     else:
         print(f"Failed to list Task Group List")

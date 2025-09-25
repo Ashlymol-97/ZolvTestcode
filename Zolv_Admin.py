@@ -115,7 +115,7 @@ else:
 
        print(f"\033[91m❌ Test Case ID - 002 : Area Creation (Parent)      : TEST FAILED...! : Invalid data or missing fields  \033[0m")
  
-       print("Failed Creation.",create_parentarea.text) 
+    #    print("Failed Creation.",create_parentarea.text) 
 
 
 
@@ -126,18 +126,18 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    import time
-    wait_time = 20
-    # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
-    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # print(time.sleep())
-    # # Then delete area
-    for remaining in range(wait_time, 0, -1):
-        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
-        time.sleep(1)
+    # import time
+    # wait_time = 20
+    # # Create area here...
+    # print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # # print(time.sleep())
+    # # # Then delete area
+    # for remaining in range(wait_time, 0, -1):
+    #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+    #     time.sleep(1)
 
-    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+    # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -407,17 +407,17 @@ else:
 # ******************************Time Delay *********************************************
 
 
-    wait_time = 20
-    # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
-    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # print(time.sleep())
-    # # Then delete area
-    for remaining in range(wait_time, 0, -1):
-        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
-        time.sleep(1)
+    # wait_time = 20
+    # # Create area here...
+    # print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
+    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # # print(time.sleep())
+    # # # Then delete area
+    # for remaining in range(wait_time, 0, -1):
+    #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+    #     time.sleep(1)
 
-    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+    # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -554,17 +554,17 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    wait_time = 20
-    # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
-    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # print(time.sleep())
-    # # Then delete area
-    for remaining in range(wait_time, 0, -1):
-        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
-        time.sleep(1)
+    # wait_time = 20
+    # # Create area here...
+    # print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
+    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # # print(time.sleep())
+    # # # Then delete area
+    # for remaining in range(wait_time, 0, -1):
+    #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+    #     time.sleep(1)
 
-    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+    # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -704,17 +704,17 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    wait_time = 20
-    # Create area here...
-    print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
-    # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # print(time.sleep())
-    # # Then delete area
-    for remaining in range(wait_time, 0, -1):
-        print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
-        time.sleep(1)
+    # wait_time = 20
+    # # Create area here...
+    # print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
+    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
+    # # print(time.sleep())
+    # # # Then delete area
+    # for remaining in range(wait_time, 0, -1):
+    #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+    #     time.sleep(1)
 
-    print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+    # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
 
 
@@ -726,7 +726,7 @@ else:
     dep_list_all = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area-list",headers=headers)
     if dep_list_all.status_code == 200 :
         dep_json=dep_list_all.json()
-        # print("Response JSON : ",json.dumps(dep_json,indent=4))
+        print("Response JSON : ",json.dumps(dep_json,indent=4))
         # print("Department Listed Successfully..!",dep_list_all.text)
         print(f"\033[92m✅ Test Case ID - 020 : Get Department List         : TEST PASSED...! \033[0m")
 
@@ -750,7 +750,7 @@ else:
         # print("Floor Detailed List Listed")
         dep_detailed_json=dep_detailed_list.json()
         print(f"\033[92m✅ Test Case ID - 021 : Get  Floor Detailed         : TEST PASSED...! \033[0m")
-        # print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
+        print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
 
     else:
         failed_count+=1

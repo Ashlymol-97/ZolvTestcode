@@ -34,13 +34,12 @@ if response_login.status_code == 200:
     if request_group_get_list.status_code == 200:
         request_group_get_list_json=request_group_get_list.json()
         request_group_id = request_group_get_list_json['id']
-    #    print("Response JSON : ",json.dumps(create_request_group_json,indent=4))
+        print("Response JSON : ",json.dumps(request_group_get_list_json,indent=4))
         # print(request_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Request Group Get List   : TEST PASSED...!  \033[0m")
     else:
         request_group_get_list.text
-        print(f"\033[91m❌ Test Case ID - 005 : Request Group Get List   : TEST FAILED...! : Invalid data or missing fields  \033[0m",request_group_get_list.text
-)
+        print(f"\033[91m❌ Test Case ID - 005 : Request Group Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
 
 
 else:

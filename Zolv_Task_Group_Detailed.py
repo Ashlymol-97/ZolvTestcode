@@ -47,7 +47,7 @@ if response_login.status_code == 200:
         if response_task_group_detailed.status_code==200:
           response_task_group_detailed_json = response_task_group_detailed.json()
           # print("Response JSON:", json.dumps(response_task_group_detailed_json, indent=4))
-          print(f"\033[92m✅ Test Case ID - 003 : Task Group Detailed  : TEST PASSED...! : Task Group Detailed \033[0m")
+          print(f"\033[92m✅ Test Case ID - 003 : Task Group Detailed  : TEST PASSED...!  \033[0m")
 
         else:
           print(f"\033[91m❌ Test Case ID - 003 : Task Group Detailed  : TEST FAILED...! : Invalid Data or Invalid ID  \033[0m")

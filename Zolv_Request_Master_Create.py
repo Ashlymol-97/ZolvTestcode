@@ -1,8 +1,8 @@
 
 
-
 import requests
 import json
+
 
 
 
@@ -36,44 +36,71 @@ login_payload = {
     "password": "Smm@1234"
 }
 headers=None
-request_group_id=None
 response_login = requests.post(login_url,json=login_payload)
 if response_login.status_code == 200:
     response_json = response_login.json()
     # print("Response JSON : ",json.dumps(response_json,indent=4))
     token= response_json.get('token',{}).get('token')
     company_id=response_json['company']['id']
-    # print(f"\033[92mTEST PASSED...! : \033[0m")
+    name=response_json.get('name')
+    # print(f"\033[92m✅ Test Case ID - 001 : TEST PASSED...! : \033[0m")
     headers = {
                 "Authorization": f"Bearer {token}",
                 "Content-Type": "application/json"
-    }
-
-#  Create Request Group : 
+                }
 
 
     create_request_group_payload ={
-        "name": "Request Group64",
+        "name": "Request Group666",
         "remarks":"remart",
         "isActive":to_bool(True)
     }
 
-
     create_request_group = requests.post(base_url + f"api/v1/tasks/request-group/web/{company_id}/create-request-group",json=create_request_group_payload,headers=headers)
     if create_request_group.status_code == 201:
         create_request_group_json=create_request_group.json()
-        request_group_id = create_request_group_json['id']
+        # request_group_id = create_request_group_json['id']
+        # print(request_group_id)
+#  Create Request Master : 
 
-    #    print("Response JSON : ",json.dumps(create_request_group_json,indent=4))
-        print(request_group_id)
-        print(f"\033[92m✅ Test Case ID - 005 : Request Group Creation   : TEST PASSED...!  \033[0m")
+
+    Create_request_master={
+        "name": "RequestMaster3",
+        "description": "aaaa",
+        "requestGroupId": [
+            "68d3d832885c9068efd7de9d"  
+            # request_group_id
+        ],
+        "requestStatus": [
+        {
+            "statusId": "string",
+            "label": "string"
+        }
+        ],
+        "workflowId": "string",
+        "isActive": to_bool(True)
+    }
+
+
+    create_request_master = requests.post(base_url + f"api/v1/tasks/request-master/web/{company_id}/create-request-master",json=Create_request_master,headers=headers)
+    if create_request_master.status_code == 200:
+        create_request_master_json=create_request_master.json()
+        request_master_id = create_request_master_json['id']
+        print("Response JSON : ",json.dumps(create_request_master_json,indent=4))
+        # print(request_master_id)
+        print(f"\033[92m✅ Test Case ID - 002 : Request Master Creation   : TEST PASSED...!  \033[0m")
     else:
-        create_request_group.text
-        print(f"\033[91m❌ Test Case ID - 005 : Request Group Creation   : TEST FAILED...! : Request group with the same name exists  \033[0m")
+        # # error_message = create_request_master_json.get("errorMessage")
+        # print(error_message)
+
+        print(f"\033[91m❌ Test Case ID - 002 : Request Master Creation   : TEST FAILED...! : Task group with the same name exists \033[0m",create_request_master.text)
 
 
 else:
-    print(f"\033[91m❌ TEST FAILED...! : Error - Invalid Credentials \033[0m")
+    response_login.text
+    print(f"\033[91m❌ Test Case ID - 001 : TEST FAILED...! : Error - Invalid Credentials \033[0m")
+
+
 
 
 
