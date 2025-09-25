@@ -52,7 +52,7 @@ if response_login.status_code == 200:
 
 
     create_request_group_payload ={
-        "name": "Request Group 23",
+        "name": "Request Group44",
         "remarks":"remart",
         "isActive":to_bool(True)
     }

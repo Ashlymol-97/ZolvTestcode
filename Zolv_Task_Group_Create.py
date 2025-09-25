@@ -51,7 +51,7 @@ if response_login.status_code == 200:
 
 
     create_task_group_payload ={
-        "name": "Task Group9",
+        "name": "Task Group89",
         "remarks":"remart",
         "isActive":to_bool(False)
     }
