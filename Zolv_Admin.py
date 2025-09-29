@@ -747,7 +747,7 @@ else:
     # print("\033[1;34mTESTING Department DETAILED LIST !\033[0m")
     dep_detailed_list = requests.get(base_url + f"api/v1/masters/department/web/{company_id}/get-department-list?departmentId={department_id}",headers=headers)
     if dep_detailed_list.status_code == 200:
-        # print("Floor Detailed List Listed")
+        # print("Floor Detailed  ")
         dep_detailed_json=dep_detailed_list.json()
         print(f"\033[92m✅ Test Case ID - 021 : Get  Floor Detailed         : TEST PASSED...! \033[0m")
         print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
@@ -755,7 +755,7 @@ else:
     else:
         failed_count+=1
         print(f"\033[91m❌ Test Case ID - 021 : Get  Floor  Detailed        : TEST FAILED...! : Invalid Input \033[0m")
-        # print("Floor Detailed Listed Failed",dep_detailed_list.text)
+        # print("Floor Detailed  Failed",dep_detailed_list.text)
 
 
 

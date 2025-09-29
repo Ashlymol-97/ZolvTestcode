@@ -4,7 +4,7 @@ import json
 
 
 
-
+# doubt
 
 def to_bool(value):
     """Converts value into a strict boolean True/False."""
@@ -66,23 +66,26 @@ if response_login.status_code == 200:
 #  Create Task Group : 
 
 
-    create_task_master_payload ={
-          "name": "Trest1",
-          "executionDepartment": "68709372293ae6389032a053",
-          "conditionalOutputAction": to_bool(True),
-          # "statusBasedOutputTrigger": "",
-          "taskGroupId":"68d3b402885c9068efd7de7a",
-          "taskStatus": [
-              {"id": taskStatus1, "name": "open"},
-              {"id": taskStatus2, "name": "pending"}
-        ],
-          "uploadFile": "",  
-          "isActive": to_bool(True)
-    }
+    data ={
+        "name":"uhest",
+        "executionDepartment":"68709372293ae6389032a053",
+        "conditionalOutputAction":to_bool(True),
+        "taskGroupId":"68d3b402885c9068efd7de7a",
+        "taskStatus[0].statusId" :"68c947e1c7a22fd66932a03c",
+        "taskStatus[0].label" :"open" ,
+        "taskStatus[1].statusId" :"68c947e1c7a22fd66932a03d",
+        "taskStatus[1].label" :"pending",
+        "isActive":to_bool(True),
+        # }
+        # files={
+        #     "uploadfiles":("uploadfiles.avif", open("", ""), "uploadfiles/avif")
+    }    
+
+    
 
 
     # doubt
-    create_task_group = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",json=create_task_master_payload,headers=headers)
+    create_task_group = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,data=data)
     if create_task_group.status_code == 201:
         create_task_group_json=create_task_group.json()
         task_group_id = create_task_group_json['id']
@@ -90,7 +93,7 @@ if response_login.status_code == 200:
         # print(task_group_id)
         print(f"\033[92m✅ Test Case ID - 002 : Task Group Creation   : TEST PASSED...!  \033[0m")
     else:
-        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m",create_task_group.text)
+        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m",create_task_group.status_code)
 
 
 else:

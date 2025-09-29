@@ -33,7 +33,6 @@ if response_login.status_code == 200:
     request_group_get_list = requests.get(base_url + f"api/v1/tasks/request-group/web/{company_id}/get-request-group-list",headers=headers)
     if request_group_get_list.status_code == 200:
         request_group_get_list_json=request_group_get_list.json()
-        request_group_id = request_group_get_list_json['id']
         print("Response JSON : ",json.dumps(request_group_get_list_json,indent=4))
         # print(request_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Request Group Get List   : TEST PASSED...!  \033[0m")
