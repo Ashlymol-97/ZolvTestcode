@@ -90,7 +90,7 @@ if response_login.status_code == 200:
     create_task_group = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,data=data)
     if create_task_group.status_code == 201:
         create_task_group_json=create_task_group.json()
-        task_group_id = create_task_group_json['id']
+        # task_master_id = create_task_group_json['id']
         print("Response JSON : ",json.dumps(create_task_group_json,indent=4))
         # print(task_group_id)
         print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
@@ -107,7 +107,7 @@ if response_login.status_code == 200:
     task_master_get_list = requests.get(base_url + f"api/v1/tasks/task-master/web/{company_id}/get-task-master-list",headers=headers)
     if task_master_get_list.status_code == 200:
         task_master_get_list_json=task_master_get_list.json()
-        print("Response JSON : ",json.dumps(task_master_get_list_json,indent=4))
+        # print("Response JSON : ",json.dumps(task_master_get_list_json,indent=4))
         task_master_id = task_master_get_list_json['taskMasters'][0]['id']
 
         # print(task_master_id)
@@ -116,6 +116,30 @@ if response_login.status_code == 200:
         task_master_get_list.text
         print(f"\033[91m❌ Test Case ID - 005 : Task Master Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
 
+
+
+
+
+
+
+    
+      
+# 4 : Task Master Detailed :
+
+    Task_master_detailed=requests.get(base_url + f"api/v1/tasks/task-master/web/{company_id}/get-task-master-details/{task_master_id}",headers=headers)
+    if Task_master_detailed.status_code==200:
+        Task_master_detailed_json = Task_master_detailed.json()
+        # print("Response JSON:", json.dumps(Task_master_detailed_json, indent=4))
+        print(f"\033[92m✅ Test Case ID - 006 : Task Master Detailed  : TEST PASSED...!  \033[0m")
+
+        # response_delete=requests.patch(base_url + f"api/v1/tasks/request-group/web/{company_id}/delete-taskmaster/{task_master_id}")
+        # if response_delete.status_code==200:
+        #     print("Deleted")
+        # else:
+        #     print("Not Deleted")
+
+    else:
+        print(f"\033[91m❌ Test Case ID - 006 : Task Master Detailed  : TEST FAILED...! : Invalid Data or Invalid ID  \033[0m")
 
 
 
