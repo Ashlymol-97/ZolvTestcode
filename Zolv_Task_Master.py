@@ -62,8 +62,10 @@ if response_login.status_code == 200:
         print(task_status_get_list.text)
         
         print("Failed")
-              
-#  Create Task Group : 
+
+
+
+# 1 : Create Task Group : 
 
 
     data ={
@@ -96,5 +98,29 @@ if response_login.status_code == 200:
         print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m",create_task_group.status_code)
 
 
+
+
+    
+    # 2 : Task Master Get List: 
+
+
+    task_master_get_list = requests.get(base_url + f"api/v1/tasks/task-master/web/{company_id}/get-task-master-list",headers=headers)
+    if task_master_get_list.status_code == 200:
+        task_master_get_list_json=task_master_get_list.json()
+        print("Response JSON : ",json.dumps(task_master_get_list_json,indent=4))
+        task_master_id = task_master_get_list_json['taskMasters'][0]['id']
+
+        # print(task_master_id)
+        print(f"\033[92m✅ Test Case ID - 005 : Task Master Get List   : TEST PASSED...!  \033[0m")
+    else:
+        task_master_get_list.text
+        print(f"\033[91m❌ Test Case ID - 005 : Task Master Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
+
+
+
+
+
+
+    
 else:
     print(f"\033[91m❌ Test Case ID - 001 : TEST FAILED...! : Error - Invalid Credentials \033[0m")
