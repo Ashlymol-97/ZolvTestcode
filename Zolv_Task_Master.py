@@ -68,20 +68,27 @@ if response_login.status_code == 200:
 # 1 : Create Task Group : 
 
 
-    data ={
-        "name":"uhest",
-        "executionDepartment":"68709372293ae6389032a053",
-        "conditionalOutputAction":to_bool(True),
-        "taskGroupId":"68d3b402885c9068efd7de7a",
-        "taskStatus[0].statusId" :"68c947e1c7a22fd66932a03c",
-        "taskStatus[0].label" :"open" ,
-        "taskStatus[1].statusId" :"68c947e1c7a22fd66932a03d",
-        "taskStatus[1].label" :"pending",
-        "isActive":to_bool(True),
-        # }
-        # files={
-        #     "uploadfiles":("uploadfiles.avif", open("", ""), "uploadfiles/avif")
-    }    
+    data = {
+        "name": "uhest",
+        "executionDepartment": "68709372293ae6389032a053",
+        "conditionalOutputAction": True,  # Assuming this should be a boolean
+        "taskGroupId": "6d83b402885c9068efd7de7a",
+        "taskStatus": [
+            {
+                "statusId": "68c947c1c7a22fd66932a03c",
+                "label": "open"
+            },
+            {
+                "statusId": "68c947c1c7a22fd66932a03d",
+                "label": "pending"
+            }
+        ],
+        "isActive": True
+    }
+
+# files = {
+#     "uploadfiles": ("uploadfiles.avif", open("uploadfiles.avif", "rb"), "image/avif")
+# }
 
     
 
@@ -140,6 +147,30 @@ if response_login.status_code == 200:
 
     else:
         print(f"\033[91m❌ Test Case ID - 006 : Task Master Detailed  : TEST FAILED...! : Invalid Data or Invalid ID  \033[0m")
+
+   
+
+
+    
+
+    
+     
+# 3 : Update Task Master : 
+
+    update_task_master_payload ={
+        # "name": "Task47",
+        # "remarks":"remart",
+        # "isActive":to_bool(False)
+    }
+    update_task_master = requests.put(base_url + f"api/v1/tasks/task-master/web/{company_id}/update-task-master/{task_master_id}",json=update_task_master_payload,headers=headers)
+    if update_task_master.status_code == 200:
+        update_task_master_json=update_task_master.json()
+        # print("Response JSON : ",json.dumps(update_task_master_json,indent=4))
+        print(f"\033[92m✅ Test Case ID - 007 : Request Group Updation   : TEST PASSED...!  \033[0m")
+    else:
+        update_task_master.text
+        print(f"\033[91m❌ Test Case ID - 007 : Request Group Updation   : TEST FAILED...! : Invalid data or ID  \033[0m",update_task_master.text)
+
 
 
 
