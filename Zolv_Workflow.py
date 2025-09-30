@@ -76,7 +76,7 @@ else:
        workflow_id = create_work_flow_json['id']
     
     #    print("Work Flow Created Successfully..!",create_work_flow.text,area_id)
-    #    print("Response JSON : ",json.dumps(create_work_flow_json,indent=4))
+       print("Response JSON : ",json.dumps(create_work_flow_json,indent=4))
        print(f"\033[92m✅ Test Case ID - WF1 : Work Flow  Creation     : TEST PASSED...!  \033[0m")
     else:
        failed_count+=1

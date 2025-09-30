@@ -40,7 +40,7 @@ if response_login.status_code == 200:
 
 
 
-# Request Group get list : 
+#  Request Group get list : 
 
     request_master_id=None
 
@@ -69,13 +69,15 @@ if response_login.status_code == 200:
 #   Workflow Get: 
 # 
 # 
-#       
-#  Create Request Master : 
+#  
+# 
+#      
+# 1 :  Create Request Master : 
 
     print("\033[1;34mRequest Master Create !\033[0m")
 
     Create_request_master={
-        "name":" request 89",
+        "name":" request master1",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,
@@ -115,7 +117,7 @@ if response_login.status_code == 200:
 
 
     
-#   Request Master Get List: 
+#  2 : Request Master Get List: 
 
     print("\033[1;34mRequest Master Get List !\033[0m")
 
@@ -123,7 +125,7 @@ if response_login.status_code == 200:
     if request_Master_get_list.status_code == 200:
         request_Master_get_list_json=request_Master_get_list.json()
         request_master_id1 = request_Master_get_list_json['requestMasters'][0]['id']
-        print("Response JSON : ",json.dumps(request_Master_get_list_json,indent=4))
+        # print("Response JSON : ",json.dumps(request_Master_get_list_json,indent=4))
         print(request_master_id)
         print(f"\033[92m✅ Test Case ID - RM2 : Request Master Get List         : TEST PASSED...!  \033[0m")
     else:
@@ -139,13 +141,13 @@ if response_login.status_code == 200:
 
 
 
-# Request Master Update : not completed 
+# 3 : Request Master Update : not completed 
 
 
     print("\033[1;34mRequest Master Update !\033[0m")
 
     update_request_master_payload={
-        "name":" request 89",
+        "name":" requestmaster update",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,
@@ -173,6 +175,7 @@ if response_login.status_code == 200:
 
     if request_master_update.status_code == 200:
         request_master_update_json = request_master_update.json()
+        # print("Response JSON : ",json.dumps(request_master_update_json,indent=4))
         print(f"\033[92m✅ Test Case ID - RM3 : Request Master Updated          : TEST PASSED...! \033[0m")
     else: 
         failed_count += 1
@@ -188,7 +191,7 @@ if response_login.status_code == 200:
 
 
 
-# # Request Master Detailed : 
+# # 4 : Request Master Detailed : 
 
 
     print("\033[1;34mRequest Master Detailed !\033[0m")
@@ -199,7 +202,7 @@ if response_login.status_code == 200:
         # print("Request Master Detailed")
         request_master_detailed_json=request_master_detailed.json()
         print(f"\033[92m✅ Test Case ID - RM4 : Get  Request Master Detailed    : TEST PASSED...! \033[0m")
-        print("Response JSON : ",json.dumps(request_master_detailed_json,indent=4))
+        # print("Response JSON : ",json.dumps(request_master_detailed_json,indent=4))
 
     else:
         failed_count+=1

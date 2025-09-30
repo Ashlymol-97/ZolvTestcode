@@ -52,7 +52,7 @@ if response_login.status_code == 200:
     task_status_get_list=requests.get(base_url + f"api/v1/masters/status/web/get-task-status-list",headers=headers)
     if task_status_get_list.status_code==200:
         task_status_get_list_json=task_status_get_list.json()
-        print("Response JSON : ",json.dumps(task_status_get_list_json,indent=4))
+        # print("Response JSON : ",json.dumps(task_status_get_list_json,indent=4))
         taskStatus1=task_status_get_list_json['taskStatus'][0]['id']
         taskStatus2=task_status_get_list_json['taskStatus'][1]['id']
 
@@ -89,11 +89,11 @@ if response_login.status_code == 200:
     if create_task_group.status_code == 201:
         create_task_group_json=create_task_group.json()
         task_group_id = create_task_group_json['id']
-    #    print("Response JSON : ",json.dumps(create_task_group_json,indent=4))
+        print("Response JSON : ",json.dumps(create_task_group_json,indent=4))
         # print(task_group_id)
-        print(f"\033[92m✅ Test Case ID - 002 : Task Group Creation   : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
     else:
-        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m",create_task_group.status_code)
+        print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : Invalid data or missing fields  \033[0m",create_task_group.status_code)
 
 
 else:
