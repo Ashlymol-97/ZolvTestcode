@@ -8,7 +8,6 @@ failed_count=0
 Toyal_count=0
 
 
-# Not Completed :
 
 
 
@@ -107,8 +106,10 @@ if response_login.status_code == 200:
         # # error_message = create_request_master_json.get("errorMessage")
         # print(error_message)
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - RM1 : Request Master Creation         : TEST FAILED...! : Task group with the same name exists \033[0m")
-        print(create_request_master.text)
+        error_text=create_request_master.json()["errorMessage"]
+
+        print(f"\033[91m❌ Test Case ID - RM1 : Request Master Creation         : TEST FAILED...! : {error_text} \033[0m")
+        # print(create_request_master.text)
         
 
 
@@ -131,7 +132,8 @@ if response_login.status_code == 200:
     else:
         request_Master_get_list.text
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - RM2 : Request Master Get List         : TEST FAILED...! : Invalid endpoint specified  \033[0m")
+        error_text=request_Master_get_list.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - RM2 : Request Master Get List         : TEST FAILED...! : {error_text}  \033[0m")
         # print(request_group_get_list.text)
 
 
@@ -179,8 +181,9 @@ if response_login.status_code == 200:
         print(f"\033[92m✅ Test Case ID - RM3 : Request Master Updated          : TEST PASSED...! \033[0m")
     else: 
         failed_count += 1
-        print(f"\033[91m❌ Test Case ID - RM3 : Request Master Updated          : TEST FAILED...! : Invalid Input \033[0m")
-        print(request_master_update.text)
+        error_text=request_master_update.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - RM3 : Request Master Updated          : TEST FAILED...! : {error_text} \033[0m")
+        # print(request_master_update.text)
 
 
 
@@ -206,8 +209,9 @@ if response_login.status_code == 200:
 
     else:
         failed_count+=1
-        print(f"\033[91m❌ Test Case ID - RM4 : Get  Request Master Detailed    : TEST FAILED...! : Invalid Input \033[0m")
-        print("Request Master Detailed  Failed",request_master_detailed.text)
+        error_text=request_master_detailed.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - RM4 : Get  Request Master Detailed    : TEST FAILED...! : {error_text} \033[0m")
+        # print("Request Master Detailed  Failed",request_master_detailed.text)
 
 
 

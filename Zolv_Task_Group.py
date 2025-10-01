@@ -65,8 +65,9 @@ if response_login.status_code == 200:
         # print(task_group_id,create_task_group.status_code)
         print(f"\033[92m✅ Test Case ID - 002 : Task Group Creation   : TEST PASSED...!  \033[0m")
     else:
-        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : Task group with the same name exists \033[0m")
-        print(create_task_group.text)
+        error_text=create_task_group.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 002 : Task Group Creation   : TEST FAILED...! : {error_text} \033[0m")
+        # print(create_task_group.text)
 
 
 
@@ -82,11 +83,12 @@ if response_login.status_code == 200:
     if response_Task_Group_list.status_code == 200:
         response_Task_Group_list_json = response_Task_Group_list.json()
         # print("Response JSON : ",json.dumps(response_Task_Group_list_json,indent=4))
-        print(f"\033[92m✅ Test Case ID - 004 : Task Group List   : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - 004 : Task Group List       : TEST PASSED...!  \033[0m")
         taskGroupId=response_Task_Group_list_json['taskGroup'][0]['id']
 
     else:
-        print(f"Failed to list Task Group List")
+        error_text=response_Task_Group_list.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 002 : Task Group List       : TEST FAILED...! : {error_text} \033[0m")
         # print(response_Task_Group_list.text)
 
 
@@ -110,7 +112,8 @@ if response_login.status_code == 200:
         print(f"\033[92m✅ Test Case ID - 004 : Task Group Updation   : TEST PASSED...!  \033[0m")
     else:
         update_task_group.text
-        print(f"\033[91m❌ Test Case ID - 004 : Task Group Updation   : TEST FAILED...! : Invalid data or ID  \033[0m",update_task_group.text)
+        error_text=update_task_group.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 004 : Task Group Updation   : TEST FAILED...! : {error_text}  \033[0m")
 
 
 
@@ -124,10 +127,11 @@ if response_login.status_code == 200:
     if response_task_group_detailed.status_code==200:
         response_task_group_detailed_json = response_task_group_detailed.json()
         # print("Response JSON:", json.dumps(response_task_group_detailed_json, indent=4))
-        print(f"\033[92m✅ Test Case ID - 003 : Task Group Detailed  : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - 003 : Task Group Detailed   : TEST PASSED...!  \033[0m")
 
     else:
-        print(f"\033[91m❌ Test Case ID - 003 : Task Group Detailed  : TEST FAILED...! : Invalid Data or Invalid ID  \033[0m")
+        error_text=response_task_group_detailed.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 003 : Task Group Detailed   : TEST FAILED...! : {error_text}  \033[0m")
 
 
 

@@ -45,6 +45,7 @@ if response_logout.status_code == 200:
 else:
     # print(f"Logout failed with status code {response_logout.status_code}")
     # print("Response:", response_logout.json())
-    print(f"\033[91m❌ Test Case ID - 012  : Logout                     :  TEST FAILED...! :  Error - Invalid or expired session token. \033[0m") # login failed so test passed
+    error_text=response_logout.json()["errorMessage"]
+    print(f"\033[91m❌ Test Case ID - 012  : Logout                     :  TEST FAILED...! :  {error_text} \033[0m") # login failed so test passed
 
 

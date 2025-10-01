@@ -7,24 +7,6 @@ import json
 
 
 
-def to_bool(value):
-    """Converts value into a strict boolean True/False."""
-    if isinstance(value, bool):   # Already a boolean
-        return value
-    if isinstance(value, str): 
-        if str in ["True","False","true","false"]:  # Strings like "true", "false", "1", "0"
-           return value.strip().lower() in ("true", "1", "yes", "y", "t")
-        
-
-    if isinstance(value, (int, float)):  # Numbers: 1 → True, 0 → False
-        return value == 1
-    return False  
-
-
-
-
-
-
 base_url = "https://qa-admin.zolv.health/"
 
 login_url= "https://qa-admin.zolv.health/api/v1/user/login"
@@ -62,12 +44,13 @@ if response_login.status_code == 200:
         request_module_id1 = request_module_get_list_json['modulesList'][0]['id']
         request_module_id2 = request_module_get_list_json['modulesList'][1]['id']
         request_module_id3 = request_module_get_list_json['modulesList'][2]['id']
+        request_module_id4 = request_module_get_list_json['modulesList'][3]['id']
 
-        print(request_module_id1)
-        print(f"\033[92m✅ Test Case ID - 005 : Modules Get List   : TEST PASSED...!  \033[0m")
+        # print(request_module_id1)
+        # print(f"\033[92m✅ Test Case ID - 006 : Modules Get List        : TEST PASSED...!  \033[0m")
     else:
         request_module_get_list.text
-        print(f"\033[91m❌ Test Case ID - 005 : Modules Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
+        # print(f"\033[91m❌ Test Case ID - 006 : Modules Get List        : TEST FAILED...! : Invalid endpoint specified  \033[0m")
 
 
 
@@ -78,8 +61,8 @@ if response_login.status_code == 200:
 
 
     create_module_group_payload ={
-      "name":"Module6",
-      "modules":[request_module_id1,request_module_id2,request_module_id3],
+      "name":"Module10",
+      "modules":[request_module_id2,request_module_id4],
       #  "requestGroup":"68db663aa688ac54c64b7102",
       "isActive":True
 
@@ -92,12 +75,13 @@ if response_login.status_code == 200:
         create_module_group_json=create_module_group.json()
         # request_group_id = create_module_group_json['id']
 
-        # print("Response JSON : ",json.dumps(create_module_group_json,indent=4))
+        print("Response JSON : ",json.dumps(create_module_group_json,indent=4))
         # print(request_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Module Group Creation   : TEST PASSED...!  \033[0m")
     else:
         create_module_group.text
-        print(f"\033[91m❌ Test Case ID - 005 : Module Group Creation   : TEST FAILED...! : Request group with the same name exists  \033[0m")
+        error_text=create_module_group.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 005 : Module Group Creation   : TEST FAILED...! : {error_text}  \033[0m")
     
 
 
@@ -116,8 +100,9 @@ if response_login.status_code == 200:
         # print(module_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Module Group Get List   : TEST PASSED...!  \033[0m")
     else:
+        error_text=module_group_get_list.json()["errorMessage"]
         module_group_get_list.text
-        print(f"\033[91m❌ Test Case ID - 005 : Module Group Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
+        print(f"\033[91m❌ Test Case ID - 005 : Module Group Get List   : TEST FAILED...! : {error_text}  \033[0m")
 
 
 
@@ -140,6 +125,8 @@ if response_login.status_code == 200:
 #         print(f"\033[92m✅ Test Case ID - 007 : Request Group Updation   : TEST PASSED...!  \033[0m")
 #     else:
 #         update_request_group.text
+        #  error_text=create_task_master.json()["errorMessage"]
+
 #         print(f"\033[91m❌ Test Case ID - 007 : Request Group Updation   : TEST FAILED...! : Invalid data or ID  \033[0m",update_request_group.text)
 
 #         print(request_group_id)

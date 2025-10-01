@@ -30,7 +30,8 @@ if response_login.status_code == 200:
                 "Content-Type": "application/json"
                 }
 else:
-    print(f"\033[91m❌ TEST FAILED...! : Test Case ID - 001 : Error - Invalid Credentials \033[0m")
+    error_text=response_login.json()["errorMessage"]
+    print(f"\033[91m❌ TEST FAILED...! : Test Case ID - 001 : {error_text} \033[0m")
 
 
 

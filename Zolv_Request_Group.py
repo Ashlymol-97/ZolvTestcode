@@ -8,24 +8,6 @@ import json
 
 
 
-def to_bool(value):
-    """Converts value into a strict boolean True/False."""
-    if isinstance(value, bool):   # Already a boolean
-        return value
-    if isinstance(value, str): 
-        if str in ["True","False","true","false"]:  # Strings like "true", "false", "1", "0"
-           return value.strip().lower() in ("true", "1", "yes", "y", "t")
-        
-
-    if isinstance(value, (int, float)):  # Numbers: 1 → True, 0 → False
-        return value == 1
-    return False  
-
-
-
-
-
-
 base_url = "https://qa-tasks.zolv.health/"
 
 login_url= "https://qa-tasks.zolv.health/api/v1/user/task-login"
@@ -57,9 +39,9 @@ if response_login.status_code == 200:
 
 
     create_request_group_payload ={
-        "name": "Request Grouper8",
+        "name": "Request Grouper48",
         "remarks":"remart",
-        "isActive":to_bool(True)
+        "isActive":True
     }
 
 
@@ -72,8 +54,10 @@ if response_login.status_code == 200:
         # print(request_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Request Group Creation   : TEST PASSED...!  \033[0m")
     else:
-        create_request_group.text
-        print(f"\033[91m❌ Test Case ID - 005 : Request Group Creation   : TEST FAILED...! : Request group with the same name exists  \033[0m")
+        # print(create_request_group.text)
+        # print(create_request_group.json()["errorMessage"])
+        error_text=create_request_group.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 005 : Request Group Creation   : TEST FAILED...! : {error_text}\033[0m")
     
 
 
@@ -92,8 +76,9 @@ if response_login.status_code == 200:
         # print(request_group_id)
         print(f"\033[92m✅ Test Case ID - 005 : Request Group Get List   : TEST PASSED...!  \033[0m")
     else:
-        request_group_get_list.text
-        print(f"\033[91m❌ Test Case ID - 005 : Request Group Get List   : TEST FAILED...! : Invalid endpoint specified  \033[0m")
+        # print(request_group_get_list.text)
+        error_text=request_group_get_list.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 005 : Request Group Get List   : TEST FAILED...! : {error_text} \033[0m")
 
 
 
@@ -105,9 +90,9 @@ if response_login.status_code == 200:
 # 3 : Update Request Group : 
 
     update_request_group_payload ={
-        "name": "Task47",
+        "name": "Task48",
         "remarks":"remart",
-        "isActive":to_bool(False)
+        "isActive":False
     }
     update_request_group = requests.put(base_url + f"api/v1/tasks/request-group/web/{company_id}/update-group/{request_group_id}",json=update_request_group_payload,headers=headers)
     if update_request_group.status_code == 200:
@@ -115,10 +100,10 @@ if response_login.status_code == 200:
         # print("Response JSON : ",json.dumps(update_request_group,indent=4))
         print(f"\033[92m✅ Test Case ID - 007 : Request Group Updation   : TEST PASSED...!  \033[0m")
     else:
-        update_request_group.text
-        print(f"\033[91m❌ Test Case ID - 007 : Request Group Updation   : TEST FAILED...! : Invalid data or ID  \033[0m",update_request_group.text)
+        error_text=update_request_group.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 007 : Request Group Updation   : TEST FAILED...! : {error_text}  \033[0m")
 
-        print(request_group_id)
+        # print(update_request_group.text)
 
 
     
@@ -134,8 +119,8 @@ if response_login.status_code == 200:
     response_task_group_detailed=requests.get(base_url + f"api/v1/tasks/request-group/web/{company_id}/get-request-group-details/{request_group_id}",headers=headers)
     if response_task_group_detailed.status_code==200:
         response_task_group_detailed_json = response_task_group_detailed.json()
-        print("Response JSON:", json.dumps(response_task_group_detailed_json, indent=4))
-        print(f"\033[92m✅ Test Case ID - 006 : Request Group Detailed  : TEST PASSED...!  \033[0m")
+        # print("Response JSON:", json.dumps(response_task_group_detailed_json, indent=4))
+        print(f"\033[92m✅ Test Case ID - 006 : Request Group Detailed   : TEST PASSED...!  \033[0m")
         # response_delete=requests.patch(base_url + f"api/v1/tasks/request-group/web/{company_id}/delete-request/{request_group_id}")
         # if response_delete.status_code==200:
         #     print("Deleted")
@@ -143,9 +128,10 @@ if response_login.status_code == 200:
         #     print("Not Deleted")
 
     else:
-        print(f"\033[91m❌ Test Case ID - 006 : Request Group Detailed  : TEST FAILED...! : Invalid Data or Invalid ID  \033[0m")
+        error_text=response_task_group_detailed.json()["errorMessage"]
 
-
+        print(f"\033[91m❌ Test Case ID - 006 : Request Group Detailed   : TEST FAILED...! : {error_text}  \033[0m")
+        # print(response_task_group_detailed.text)
 
 
 
