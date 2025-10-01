@@ -726,7 +726,7 @@ else:
     dep_list_all = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area-list",headers=headers)
     if dep_list_all.status_code == 200 :
         dep_json=dep_list_all.json()
-        print("Response JSON : ",json.dumps(dep_json,indent=4))
+        # print("Response JSON : ",json.dumps(dep_json,indent=4))
         # print("Department Listed Successfully..!",dep_list_all.text)
         print(f"\033[92m✅ Test Case ID - 020 : Get Department List         : TEST PASSED...! \033[0m")
 
@@ -750,7 +750,7 @@ else:
         # print("Floor Detailed  ")
         dep_detailed_json=dep_detailed_list.json()
         print(f"\033[92m✅ Test Case ID - 021 : Get  Floor Detailed         : TEST PASSED...! \033[0m")
-        print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
+        # print("Response JSON : ",json.dumps(dep_detailed_json,indent=4))
 
     else:
         failed_count+=1

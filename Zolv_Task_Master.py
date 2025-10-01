@@ -189,10 +189,23 @@ if response_login.status_code == 200:
 # 3 : Update Task Master : 
 
     update_task_master_payload ={
-        # "name": "Task47",
-        # "remarks":"remart",
-        # "isActive":to_bool(False)
+        "name": "tasktestupdated",
+        "executionDepartment": "68709372293ae6389032a053",
+        "conditionalOutputAction": to_bool(str(True)),
+        "taskGroupId": "6d83b402885c9068efd7de7a",
+        "taskStatus": [
+            {
+                "statusId": taskStatus1,
+                "label": "open"
+            },
+            {
+                "statusId": taskStatus2,
+                "label": "pending"
+            }
+        ],
+        "isActive": to_bool(str(True))
     }
+
     update_task_master = requests.put(base_url + f"api/v1/tasks/task-master/web/{company_id}/update-task-master/{task_master_id}",json=update_task_master_payload,headers=headers)
     if update_task_master.status_code == 200:
         update_task_master_json=update_task_master.json()
