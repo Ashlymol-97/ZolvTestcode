@@ -1,11 +1,7 @@
 import requests
 import time
 import json
-import random
-import urllib.parse
 
-import base64
-import hashlib
 
 print(f"\033[1;34m** ZOLV ADMIN TESTCODE **.\033[0m")
 
@@ -103,19 +99,24 @@ else:
     }
     create_parentarea = requests.post(base_url + f"api/v1/masters/area/web/{company_id}/create-area",json=create_parentarea_payload,headers=headers)
     if create_parentarea.status_code == 200:
-       createparent_json=create_parentarea.json()
-       area_id = createparent_json['id']
-    #    area_name=create_parentarea
-    
-    #    print("Parent Area Created Successfully..!",create_parentarea.text,area_id)
-    #    print("Response JSON : ",json.dumps(createparent_json,indent=4))
-       print(f"\033[92m✅ Test Case ID - 002 : Area Creation (Parent)      : TEST PASSED...!  \033[0m")
-    else:
-       failed_count+=1
+        createparent_json=create_parentarea.json()
+        area_id = createparent_json['id']
 
-       print(f"\033[91m❌ Test Case ID - 002 : Area Creation (Parent)      : TEST FAILED...! : Invalid data or missing fields  \033[0m")
- 
-    #    print("Failed Creation.",create_parentarea.text) 
+        area_detailed_list = requests.get(base_url + f"api/v1/masters/area/web/{company_id}/get-area/{area_id}",headers=headers)
+        if area_detailed_list.status_code == 200:
+           
+            area_detailed_list_json=area_detailed_list.json()
+            # area_name=createparent_json.get('name')
+
+            #    print("Parent Area Created Successfully..!",create_parentarea.text,area_id)
+            # print("Response JSON : ",json.dumps(createparent_json,indent=4))
+            print(f"\033[92m✅ Test Case ID - 002 : Area Creation (Parent)      : TEST PASSED...!  \033[0m")
+    else:
+         failed_count+=1
+
+         print(f"\033[91m❌ Test Case ID - 002 : Area Creation (Parent)      : TEST FAILED...! : Invalid data or missing fields  \033[0m")
+    
+        #    print("Failed Creation.",create_parentarea.text) 
 
 
 
@@ -125,22 +126,23 @@ else:
 
 
 # ******************************Time Delay *********************************************
+    import time
 
-    # import time
-    # wait_time = 20
-    # # Create area here...
-    # print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
-    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # # print(time.sleep())
-    # # # Then delete area
-    # for remaining in range(wait_time, 0, -1):
-    #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
-    #     time.sleep(1)
+    choice = input("\033[38;5;208mDo you want to add a wait delay? (yes/no): \033[0m").strip().lower()
 
-    # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+    if choice == "yes":
+        wait_time = int(input("\033[38;5;208mEnter wait time in seconds: \033[0m"))
+        print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
 
+        # Countdown loop
+        for remaining in range(wait_time, 0, -1):
+            print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
+            time.sleep(1)
 
+        print("\033[38;5;208m\n✅ Done waiting!\033[0m")
 
+    else:
+        print("\033[38;5;82m⏩ Skipping wait... proceeding immediately!\033[0m")
 
 
    
@@ -407,17 +409,19 @@ else:
 # ******************************Time Delay *********************************************
 
 
-    # wait_time = 20
-    # # Create area here...
-    # print("\033[38;5;208m⏳ Waiting for Building to be available in frontend...\033[0m")
-    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # # print(time.sleep())
-    # # # Then delete area
+    # wait_time = int(input("Enter wait time in seconds: "))
+
+    # print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+
+    # # Countdown loop
     # for remaining in range(wait_time, 0, -1):
     #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
     #     time.sleep(1)
 
     # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+
+
+
 
 
 
@@ -554,12 +558,12 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    # wait_time = 20
-    # # Create area here...
-    # print("\033[38;5;208m⏳ Waiting for Floor to be available in frontend...\033[0m")
-    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # # print(time.sleep())
-    # # # Then delete area
+
+    # wait_time = int(input("Enter wait time in seconds: "))
+
+    # print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+
+    # # Countdown loop
     # for remaining in range(wait_time, 0, -1):
     #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
     #     time.sleep(1)
@@ -704,17 +708,19 @@ else:
 
 # ******************************Time Delay *********************************************
 
-    # wait_time = 20
-    # # Create area here...
-    # print("\033[38;5;208m⏳ Waiting for Department to be available in frontend...\033[0m")
-    # # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
-    # # print(time.sleep())
-    # # # Then delete area
+    
+    # wait_time = int(input("Enter wait time in seconds: "))
+
+    # print("\033[38;5;208m⏳ Waiting for Area to be available in frontend...\033[0m")
+
+    # # Countdown loop
     # for remaining in range(wait_time, 0, -1):
     #     print(f"\033[38;5;208m\r⏳ Waiting... {remaining} seconds left\033[0m", end="")
     #     time.sleep(1)
 
     # print("\033[38;5;208m\n✅ Done waiting!\033[0m")
+
+
 
 
 

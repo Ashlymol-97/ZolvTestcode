@@ -3,6 +3,7 @@
 import requests
 import json
 
+    # print("\033[1;34mModule Group \033[0m")
 
 
 
@@ -61,8 +62,8 @@ if response_login.status_code == 200:
 
 
     create_module_group_payload ={
-      "name":"Module10",
-      "modules":[request_module_id2,request_module_id4],
+      "name":"Module11",
+      "modules":[request_module_id2,request_module_id1],
       #  "requestGroup":"68db663aa688ac54c64b7102",
       "isActive":True
 

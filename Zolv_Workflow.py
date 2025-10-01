@@ -9,6 +9,7 @@ Toyal_count=0
 
 # Not Completed :
 
+print("\033[1;34mWork Flow \033[0m")
 
 
 def to_bool(value):
@@ -65,7 +66,7 @@ else:
     print("\033[1;34mWork Flow Creation !\033[0m")
 
     create_workflow_payload = {
-      "name": "Workflow",
+      "name": "Workflow23",
       "isActive": to_bool(True),
       "data": {}
     }
@@ -131,14 +132,14 @@ else:
     print("\033[1;34mWork Flow  Update !\033[0m")
 
     update_work_flow_payload ={
-      "name": "Workflowsupdated",
+      "name": "Workflowsupdated2",
       "isActive": to_bool(True),
       "data": {}
     }
     
 
     work_flow_update = requests.put(
-        base_url + f"api/v1/tasks/request-master/web/{company_id}/update-request-master/{Work_Flow_id}",
+        base_url + f"api/v1/tasks/workflow/web/{company_id}/update-workflow/{Work_Flow_id}",
         json=update_work_flow_payload, 
         headers=headers
     )
@@ -167,7 +168,7 @@ else:
     print("\033[1;34mWork Flow Detailed !\033[0m")
 
 
-    work_flow_detailed = requests.get(base_url + f"api/v1/tasks/request-master/web/{company_id}/get-request-master-details/{Work_Flow_id}",headers=headers)
+    work_flow_detailed = requests.get(base_url + f"api/v1/tasks/workflow/web/{company_id}/get-workflow-details/{Work_Flow_id}",headers=headers)
     if work_flow_detailed.status_code == 200:
         # print("Work Flow Detailed")
         work_flow_detailed_json=work_flow_detailed.json()

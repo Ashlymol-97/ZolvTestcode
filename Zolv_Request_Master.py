@@ -5,12 +5,13 @@ import json
 
 
 failed_count=0
-Toyal_count=0
+Total_count=0
 
 
 
 
 
+print("\033[1;34mRequest Master \033[0m")
 
 
 
@@ -73,10 +74,10 @@ if response_login.status_code == 200:
 #      
 # 1 :  Create Request Master : 
 
-    print("\033[1;34mRequest Master Create !\033[0m")
+    # print("\033[1;34mRequest Master Create !\033[0m")
 
     Create_request_master={
-        "name":" request master1",
+        "name":" request master43",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,
@@ -120,14 +121,14 @@ if response_login.status_code == 200:
     
 #  2 : Request Master Get List: 
 
-    print("\033[1;34mRequest Master Get List !\033[0m")
+    # print("\033[1;34mRequest Master Get List !\033[0m")
 
     request_Master_get_list = requests.get(base_url + f"api/v1/tasks/request-master/web/{company_id}/get-request-master-list",headers=headers)
     if request_Master_get_list.status_code == 200:
         request_Master_get_list_json=request_Master_get_list.json()
         request_master_id1 = request_Master_get_list_json['requestMasters'][0]['id']
         # print("Response JSON : ",json.dumps(request_Master_get_list_json,indent=4))
-        print(request_master_id)
+        # print(request_master_id)
         print(f"\033[92m✅ Test Case ID - RM2 : Request Master Get List         : TEST PASSED...!  \033[0m")
     else:
         request_Master_get_list.text
@@ -146,10 +147,10 @@ if response_login.status_code == 200:
 # 3 : Request Master Update : not completed 
 
 
-    print("\033[1;34mRequest Master Update !\033[0m")
+    # print("\033[1;34mRequest Master Update !\033[0m")
 
     update_request_master_payload={
-        "name":" requestmaster update",
+        "name":" requestmaster update2",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,
@@ -197,7 +198,7 @@ if response_login.status_code == 200:
 # # 4 : Request Master Detailed : 
 
 
-    print("\033[1;34mRequest Master Detailed !\033[0m")
+    # print("\033[1;34mRequest Master Detailed !\033[0m")
 
 
     request_master_detailed = requests.get(base_url + f"api/v1/tasks/request-master/web/{company_id}/get-request-master-details/{request_master_id1}",headers=headers)

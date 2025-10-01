@@ -5,22 +5,7 @@ import json
 
 
 
-
-def to_bool(value):
-    """Converts value into a strict boolean True/False."""
-    if isinstance(value, bool):   # Already a boolean
-        return value
-    if isinstance(value, str): 
-        if str in ["True","False","true","false"]:  # Strings like "true", "false", "1", "0"
-           return value.strip().lower() in ("true", "1", "yes", "y", "t")
-        
-
-    if isinstance(value, (int, float)):  # Numbers: 1 → True, 0 → False
-        return value == 1
-    return False  
-
-
-
+print("\033[1;34mTask Group \033[0m")
 
 
 
@@ -52,7 +37,7 @@ if response_login.status_code == 200:
 
 
     create_task_group_payload ={
-        "name": "Task Grou7p5",
+        "name": "Task Grou7p25",
         "remarks":"remart",
         "isActive":False
     }
@@ -85,7 +70,7 @@ if response_login.status_code == 200:
         # print("Response JSON : ",json.dumps(response_Task_Group_list_json,indent=4))
         print(f"\033[92m✅ Test Case ID - 004 : Task Group List       : TEST PASSED...!  \033[0m")
         taskGroupId=response_Task_Group_list_json['taskGroup'][0]['id']
-
+        # print(taskGroupId)
     else:
         error_text=response_Task_Group_list.json()["errorMessage"]
         print(f"\033[91m❌ Test Case ID - 002 : Task Group List       : TEST FAILED...! : {error_text} \033[0m")
@@ -100,9 +85,9 @@ if response_login.status_code == 200:
 # 3 :  Update Task Group : 
 
     update_task_group_payload ={
-        "name": "Task 73",
+        "name": "Task 273",
         "remarks":"remart",
-        "isActive":to_bool(False)
+        "isActive":False
     }
 
     update_task_group = requests.put(base_url + f"api/v1/tasks/task-group/web/{company_id}/update-group/{taskGroupId}",json=update_task_group_payload,headers=headers)

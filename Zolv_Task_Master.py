@@ -1,8 +1,17 @@
 
 import requests
 import json
+admin_login_url= "https://qa-admin.zolv.health/api/v1/user/login"
+admin_logout_url="https://qa-admin.zolv.health/api/v1/user/logout"
 
 
+admin_login_payload = {
+    "loginId": "AshlyAdmin",
+    "password": "Smm@1234"
+}
+
+
+print("\033[1;34mTask Master \033[0m")
 
 # doubt
 
@@ -19,14 +28,52 @@ import json
 #         return value == 1
 #     return False  
 
-def to_bool(value: str) -> str:
-    if value.strip() == "True":
-        return "true"
-    elif value.strip() == "False":
-        return "false"
-    return value
 
 
+# Get Execution department : 
+execution_department_id=None
+admin_login = requests.post(admin_login_url,json=admin_login_payload)
+if admin_login.status_code == 200:
+    admin_login_json = admin_login.json()
+    # print("Response JSON : ",json.dumps(admin_login_json,indent=4))
+    admin_token= admin_login_json.get('token',{}).get('token')
+    company_id=admin_login_json['company']['id']
+    admin_header = {
+        "Authorization": f"Bearer {admin_token}",
+        "Content-Type": "application/json"
+    }
+
+    admin_base_url="https://qa-admin.zolv.health/"
+    execution_departments = requests.get(admin_base_url + f"api/v1/masters/department/web/{company_id}/get-department-list?isActive=&name=&ignorePaging=false&size=10&sort=1&page=1",headers=admin_header)
+    if execution_departments.status_code==200:
+        execution_departments_json=execution_departments.json()
+        # print("Response JSON : ",json.dumps(execution_departments_json,indent=4))
+        execution_department_id=execution_departments_json['departments'][1]['id']
+    else:
+        print("Failed list")
+
+# print("Login Failed")
+
+
+    # Logout :
+
+    response_logout=requests.put(admin_logout_url,headers=admin_header)
+    if response_logout.status_code == 200:
+        # print("Logout Successfully")
+        response_logout.text
+    else:
+        response_logout.text
+        # print("Logout Failed")
+
+
+
+
+
+
+
+
+
+# Tasks :
 
 
 base_url = "https://qa-tasks.zolv.health/"
@@ -67,54 +114,69 @@ if response_login.status_code == 200:
         
         print("Failed")
          
-# Get Execution department : 
-
-        execution_departments = requests.get(base_url + "api/v1/masters/execution-department-list", headers=headers)
-        if execution_departments.status_code==200:
-
-           print(execution_departments.json())
-        print("Failed list")
+    
 
 
-# 1 : Create Task Master : 
 
 
-#     data = {
-#         "name": "uhest",
-#         "executionDepartment": "68709372293ae6389032a053",
-#         "conditionalOutputAction": True,  # Assuming this should be a boolean
-#         "taskGroupId": "6d83b402885c9068efd7de7a",
-#         "taskStatus": [
-#             {
-#                 "statusId": "68c947c1c7a22fd66932a03c",
-#                 "label": "open"
-#             },
-#             {
-#                 "statusId": "68c947c1c7a22fd66932a03d",
-#                 "label": "pending"
-#             }
-#         ],
-#         "isActive": True
-#     }
+# 2 : Task Group List :
 
-# # files = {
-# #     "uploadfiles": ("uploadfiles.avif", open("uploadfiles.avif", "rb"), "image/avif")
-# # }
+    taskgroupid=None
+    Task_Group_list = requests.get(base_url + f"api/v1/tasks/task-group/web/{company_id}/get-task-group-list",headers=headers)
+    if Task_Group_list.status_code == 200:
+        Task_Group_list_json = Task_Group_list.json()
+        # print("Response JSON : ",json.dumps(Task_Group_list_json,indent=4))
+        # print(f"\033[92m✅ Task Group List       : TEST PASSED...!  \033[0m")
+        taskgroupid=Task_Group_list_json['taskGroup'][17]['id']
+        # print(taskgroupid)
+    else:
+        error_text=Task_Group_list.json()["errorMessage"]
+        # print(f"\033[91m❌ Task Group List       : TEST FAILED...! : {error_text} \033[0m")
+        # print(response_Task_GroTask_Group_listup_list.text)
+
 
     
 
 
-#     # doubt
-#     create_task_master = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,json=data)
-#     if create_task_master.status_code == 201:
-#         create_task_master_json=create_task_master.json()
-#         # task_master_id = create_task_master_json['id']
-#         print("Response JSON : ",json.dumps(create_task_master_json,indent=4))
-#         # print(task_group_id)
-#         print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
-#     else:
-#         error_text=create_task_master.json()["errorMessage"]
-#         print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m",create_task_master.status_code)
+# # 1 : Create Task Master : 
+
+
+# #     data = {
+# #         "name": "uhest",
+# #         "executionDepartment": "68709372293ae6389032a053",
+# #         "conditionalOutputAction": True,  # Assuming this should be a boolean
+# #         "taskGroupId": "6d83b402885c9068efd7de7a",
+# #         "taskStatus": [
+# #             {
+# #                 "statusId": "68c947c1c7a22fd66932a03c",
+# #                 "label": "open"
+# #             },
+# #             {
+# #                 "statusId": "68c947c1c7a22fd66932a03d",
+# #                 "label": "pending"
+# #             }
+# #         ],
+# #         "isActive": True
+# #     }
+
+# # # files = {
+# # #     "uploadfiles": ("uploadfiles.avif", open("uploadfiles.avif", "rb"), "image/avif")
+# # # }
+
+    
+
+
+# #     # doubt
+# #     create_task_master = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,json=data)
+# #     if create_task_master.status_code == 201:
+# #         create_task_master_json=create_task_master.json()
+# #         # task_master_id = create_task_master_json['id']
+# #         print("Response JSON : ",json.dumps(create_task_master_json,indent=4))
+# #         # print(task_group_id)
+# #         print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
+# #     else:
+# #         error_text=create_task_master.json()["errorMessage"]
+# #         print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m",create_task_master.status_code)
 
 
 
@@ -124,9 +186,9 @@ if response_login.status_code == 200:
 
     data = {
         "name": "tasktest",
-        "executionDepartment": "68709372293ae6389032a053",
-        "conditionalOutputAction": to_bool(str(True)),
-        "taskGroupId": "6d83b402885c9068efd7de7a",
+        "executionDepartment": execution_department_id,
+        "conditionalOutputAction": True,
+        "taskGroupId": taskgroupid,
         "taskStatus": [
             {
                 "statusId": taskStatus1,
@@ -137,7 +199,7 @@ if response_login.status_code == 200:
                 "label": "pending"
             }
         ],
-        "isActive": to_bool(str(True))
+        "isActive": True
     }
 
 
@@ -190,8 +252,8 @@ if response_login.status_code == 200:
 
     update_task_master_payload ={
         "name": "tasktestupdated",
-        "executionDepartment": "68709372293ae6389032a053",
-        "conditionalOutputAction": to_bool(str(True)),
+        "executionDepartment": execution_department_id,
+        "conditionalOutputAction":True,
         "taskGroupId": "6d83b402885c9068efd7de7a",
         "taskStatus": [
             {
@@ -203,7 +265,7 @@ if response_login.status_code == 200:
                 "label": "pending"
             }
         ],
-        "isActive": to_bool(str(True))
+        "isActive": True
     }
 
     update_task_master = requests.put(base_url + f"api/v1/tasks/task-master/web/{company_id}/update-task-master/{task_master_id}",json=update_task_master_payload,headers=headers)
@@ -246,3 +308,21 @@ if response_login.status_code == 200:
     
 else:
     print(f"\033[91m❌ Test Case ID - 001 : TEST FAILED...!  :  Invalid Credentials \033[0m")
+
+
+
+
+
+
+
+
+
+
+# Logout :
+# response_logout=requests.put(logout_url,headers=headers)
+# if response_logout.status_code == 200:
+#     # print("Logout Successfully")
+#     response_logout.text
+# else:
+#     response_logout.text
+#     # print("Logout Failed")
