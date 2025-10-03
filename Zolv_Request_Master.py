@@ -77,7 +77,7 @@ if response_login.status_code == 200:
     # print("\033[1;34mRequest Master Create !\033[0m")
 
     Create_request_master={
-        "name":" request master333",
+        "name":" request master583",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,
@@ -150,7 +150,7 @@ if response_login.status_code == 200:
     # print("\033[1;34mRequest Master Update !\033[0m")
 
     update_request_master_payload={
-        "name":" requestmaster update2",
+        "name":" requestmaster update7",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,

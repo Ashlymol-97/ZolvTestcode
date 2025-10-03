@@ -41,7 +41,7 @@ if response_login.status_code == 200:
 
 
     create_request_group_payload ={
-        "name": "Request Grouper865",
+        "name": "Request Grouper",
         "remarks":"remart",
         "isActive":True
     }
@@ -92,7 +92,7 @@ if response_login.status_code == 200:
 # 3 : Update Request Group : 
 
     update_request_group_payload ={
-        "name": "Task473",
+        "name": "Task893",
         "remarks":"remart",
         "isActive":False
     }

@@ -140,7 +140,7 @@ if response_login.status_code == 200:
     # 1 : Create Task MASTER :
     task_master_id=None
     data = {
-        "name": "thes9",
+        "name": "taskmaster12",
         "executionDepartment": execution_department_id,
         "conditionalOutputAction": str(to_bool(True)).lower(),
         "taskGroupId": taskgroupid,
@@ -219,7 +219,7 @@ if response_login.status_code == 200:
 # 3 : Update Task Master : 
 
     Update_data = {
-        "name": "th",
+        "name": "taskmasterup",
         "executionDepartment": execution_department_id,
         "conditionalOutputAction": str(to_bool(True)).lower(),
         "taskGroupId": taskgroupid,

@@ -26,11 +26,6 @@ headers=None
 # print("\033[1;34mTESTING LOGIN!\033[0m")
 response_login = requests.post(login_url,json=login_payload)
 if response_login.status_code == 200:
-#     # failed_count+=1
-#     # error_text=response_login.json()["errorMessage"]
-#     # print(f"\033[91m❌  Test Case ID - 001 : Login                      : TEST FAILED...! :   \033[0m")
-#     # # print("Response:", response_login.json())
-# else:
     response_json = response_login.json()
     # print(f"Login Successfull   with status code {response_login.status_code}",login_payload)
 
@@ -117,7 +112,7 @@ if response_login.status_code == 200:
 # ******************************Time Delay *********************************************
 
 
-    wait_time = 15
+    wait_time = int(input("Enter wait time in seconds: "))
     # Create area here...
     print("\033[38;5;208m⏳ Waiting \033[0m")
     # time.sleep(25)   # wait 3 seconds, adjust based on system behavior
@@ -264,58 +259,66 @@ if response_login.status_code == 200:
 
 
 
-area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{child_area_id}",headers=headers)
-if area_delete.status_code == 200 :
-    # print("Child Area Deleted Successfully...!")
-    print(f"\033[92m✅ Test Case ID - 007 : Delete Area (Child)         : TEST PASSED...!  \033[0m")
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{child_area_id}",headers=headers)
+    if area_delete.status_code == 200 :
+        # print("Child Area Deleted Successfully...!")
+        print(f"\033[92m✅ Test Case ID - 007 : Delete Area (Child)         : TEST PASSED...!  \033[0m")
 
-else: 
+    else: 
+        failed_count+=1
+        # error_text=area_delete.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 007 : Delete Area (Child)         : TEST FAILED...! :  \033[0m")
+        # print("Child Area Deleted failed...!",area_delete.text) 
+
+
+
+
+
+
+
+
+
+    # 8 : Area : Parent Area :  Delete :
+
+    area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id}",headers=headers)
+    if area_delete.status_code == 200 :
+        # print("Area Deleted Successfully...!")
+        print(f"\033[92m✅ Test Case ID - 008 : Delete Area (Parent)        : TEST PASSED...!  \033[0m")
+
+    else: 
+        failed_count+=1
+        # error_text=area_delete.json()["errorMessage"]
+        print(f"\033[91m❌ Test Case ID - 008 : Delete Area (Parent)        : TEST FAILED...! :  \033[0m")
+        # print("Area Deleted failed...!",area_delete.text) 
+
+
+
+else:
+
     failed_count+=1
-    # error_text=area_delete.json()["errorMessage"]
-    print(f"\033[91m❌ Test Case ID - 007 : Delete Area (Child)         : TEST FAILED...! :  \033[0m")
-    # print("Child Area Deleted failed...!",area_delete.text) 
+    error_text=response_login.json()["errorMessage"]
+    print(f"\033[91m❌  Test Case ID - 001 : Login                      : TEST FAILED...! :   \033[0m")
+    # print("Response:", response_login.json())
 
 
 
 
 
+# 17 :logout :  
 
+# response_logout = requests.put(logout_url,headers=headers) 
+# if response_logout.status_code == 200:
+#     logout_json = response_logout.json()
+#     # print("Response JSON:", json.dumps(logout_json, indent=4))
+#     # print(f"Token (Logout): {token}")
+#     print(f"\033[92m✅ Test Case ID - 012 : Logout                      : TEST PASSED...! \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
 
-
-
-# 8 : Area : Parent Area :  Delete :
-
-area_delete = requests.patch(base_url + f"api/v1/masters/area/web/{company_id}/delete-area/{area_id}",headers=headers)
-if area_delete.status_code == 200 :
-    # print("Area Deleted Successfully...!")
-    print(f"\033[92m✅ Test Case ID - 008 : Delete Area (Parent)        : TEST PASSED...!  \033[0m")
-
-else: 
-    failed_count+=1
-    # error_text=area_delete.json()["errorMessage"]
-    print(f"\033[91m❌ Test Case ID - 008 : Delete Area (Parent)        : TEST FAILED...! :  \033[0m")
-    # print("Area Deleted failed...!",area_delete.text) 
-
-
-
-
-
-
-# # 17 :logout :  
-
-#     response_logout = requests.put(logout_url,headers=headers) 
-#     if response_logout.status_code == 200:
-#         logout_json = response_logout.json()
-#         print("Response JSON:", json.dumps(logout_json, indent=4))
-#         print(f"Token (Logout): {token}")
-#         print(f"\033[92m✅ Test Case ID - 012 : Logout                      : TEST PASSED...! \033[0m") # login success so test failed becoz in oms logged with oms in other 3 credentials kds,go,testoms
-
-#     else:
-#         failed_count+=1
-#         # error_text=response_logout.json()["errorMessage"]
-#         print(f"Logout failed with status code {response_logout.status_code}")
-#         print("Response:", response_logout.json())
-#         print(f"\033[91m❌ Test Case ID - 012  : Logout                     :  TEST FAILED...!  \033[0m") # login failed so test passed
+# else:
+#     failed_count+=1
+#     # error_text=response_logout.json()["errorMessage"]
+#     # print(f"Logout failed with status code {response_logout.status_code}")
+#     # print("Response:", response_logout.json())
+#     print(f"\033[91m❌ Test Case ID - 012  : Logout                     :  TEST FAILED...!  \033[0m") # login failed so test passed
 
 
 

@@ -37,7 +37,7 @@ if response_login.status_code == 200:
 
 
     create_task_group_payload ={
-        "name": "Task Grou7p25",
+        "name": "Task Grou7p85",
         "remarks":"remart",
         "isActive":False
     }
@@ -85,7 +85,7 @@ if response_login.status_code == 200:
 # 3 :  Update Task Group : 
 
     update_task_group_payload ={
-        "name": "Task 273",
+        "name": "Task 773",
         "remarks":"remart",
         "isActive":False
     }

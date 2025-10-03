@@ -63,7 +63,7 @@ if response_login.status_code == 200:
 
     create_module_group_payload ={
       "name":"Module11",
-      "modules":[request_module_id2,request_module_id1],
+      "modules":[request_module_id3,request_module_id1],
       #  "requestGroup":"68db663aa688ac54c64b7102",
       "isActive":True
 
