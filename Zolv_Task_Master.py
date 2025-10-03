@@ -180,7 +180,7 @@ if response_login.status_code == 200:
         else:
             error_text=response.json()["errorMessage"]
             response.text
-            print(f"\033[91m❌ Test Case ID - 005 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m")
+            print(f"\033[91m❌ Test Case ID - TM1 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m")
 
         
 
@@ -201,11 +201,11 @@ if response_login.status_code == 200:
         # task_master_id = task_master_get_list_json['taskMasters'][0]['id']
 
         # print(task_master_id)
-        print(f"\033[92m✅ Test Case ID - 005 : Task Master Get List   : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - TM2 : Task Master Get List   : TEST PASSED...!  \033[0m")
     else:
         error_text=task_master_get_list.json()["errorMessage"]
         task_master_get_list.text
-        print(f"\033[91m❌ Test Case ID - 005 : Task Master Get List   : TEST FAILED...! : {error_text}  \033[0m")
+        print(f"\033[91m❌ Test Case ID - TM2 : Task Master Get List   : TEST FAILED...! : {error_text}  \033[0m")
 
 
 
@@ -251,11 +251,11 @@ if response_login.status_code == 200:
     if response_update.status_code == 200:
         response_update_json=response_update.json()
         # print("Response JSON : ",json.dumps(response_update_json,indent=4))
-        print(f"\033[92m✅ Test Case ID - 007 : Task Master Updation   : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - TM3 : Task Master Updation   : TEST PASSED...!  \033[0m")
     else:
         error_text=response_update.json()["errorMessage"]
         response_update.text
-        print(f"\033[91m❌ Test Case ID - 007 : Task Master Updation   : TEST FAILED...! : {error_text}  \033[0m")
+        print(f"\033[91m❌ Test Case ID - TM3 : Task Master Updation   : TEST FAILED...! : {error_text}  \033[0m")
 
 
 
@@ -269,7 +269,7 @@ if response_login.status_code == 200:
     if Task_master_detailed.status_code==200:
         Task_master_detailed_json = Task_master_detailed.json()
         # print("Response JSON:", json.dumps(Task_master_detailed_json, indent=4))
-        print(f"\033[92m✅ Test Case ID - 006 : Task Master Detailed   : TEST PASSED...!  \033[0m")
+        print(f"\033[92m✅ Test Case ID - TM4 : Task Master Detailed   : TEST PASSED...!  \033[0m")
 
         # response_delete=requests.patch(base_url + f"api/v1/tasks/request-group/web/{company_id}/delete-taskmaster/{task_master_id}")
         # if response_delete.status_code==200:
@@ -279,13 +279,13 @@ if response_login.status_code == 200:
 
     else:
         error_text=Task_master_detailed.json()["errorMessage"]
-        print(f"\033[91m❌ Test Case ID - 006 : Task Master Detailed    : TEST FAILED...! : {error_text}  \033[0m")
+        print(f"\033[91m❌ Test Case ID - TM4 : Task Master Detailed    : TEST FAILED...! : {error_text}  \033[0m")
 
 
 
     
 else:
-    print(f"\033[91m❌ Test Case ID - 001 : TEST FAILED...!  :  Invalid Credentials \033[0m")
+    print(f"\033[91m❌ Test Case ID - TM1 : TEST FAILED...!  :  Invalid Credentials \033[0m")
 
 
 
