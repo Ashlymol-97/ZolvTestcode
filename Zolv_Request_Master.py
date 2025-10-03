@@ -77,7 +77,7 @@ if response_login.status_code == 200:
     # print("\033[1;34mRequest Master Create !\033[0m")
 
     Create_request_master={
-        "name":" request master43",
+        "name":" request master333",
 
         "requestGroupIds":[request_group_id1,request_group_id2,request_group_id3],
         "isActive":False,

@@ -1,6 +1,7 @@
 
 import requests
 import json
+import os
 admin_login_url= "https://qa-admin.zolv.health/api/v1/user/login"
 admin_logout_url="https://qa-admin.zolv.health/api/v1/user/logout"
 
@@ -13,20 +14,19 @@ admin_login_payload = {
 
 print("\033[1;34mTask Master \033[0m")
 
-# doubt
 
-# def to_bool(value):
-#     """Converts value into a strict boolean True/False."""
-#     if isinstance(value, bool):   # Already a boolean
-#         return value
-#     if isinstance(value, str): 
-#         if str in ["True","False","true","false"]:  # Strings like "true", "false", "1", "0"
-#            return value.strip().lower() in ("true", "1", "yes", "y", "t")
-        
 
-#     if isinstance(value, (int, float)):  # Numbers: 1 → Truea, 0 → False
-#         return value == 1
-#     return False  
+
+def to_bool(value):
+    """Converts value into a strict boolean True/False."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in ("true", "1", "yes", "y", "t")
+    if isinstance(value, (int, float)):
+        return value == 1
+    return False
+
 
 
 
@@ -137,84 +137,52 @@ if response_login.status_code == 200:
 
     
 
-
-# # 1 : Create Task Master : 
-
-
-# #     data = {
-# #         "name": "uhest",
-# #         "executionDepartment": "68709372293ae6389032a053",
-# #         "conditionalOutputAction": True,  # Assuming this should be a boolean
-# #         "taskGroupId": "6d83b402885c9068efd7de7a",
-# #         "taskStatus": [
-# #             {
-# #                 "statusId": "68c947c1c7a22fd66932a03c",
-# #                 "label": "open"
-# #             },
-# #             {
-# #                 "statusId": "68c947c1c7a22fd66932a03d",
-# #                 "label": "pending"
-# #             }
-# #         ],
-# #         "isActive": True
-# #     }
-
-# # # files = {
-# # #     "uploadfiles": ("uploadfiles.avif", open("uploadfiles.avif", "rb"), "image/avif")
-# # # }
-
-    
-
-
-# #     # doubt
-# #     create_task_master = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,json=data)
-# #     if create_task_master.status_code == 201:
-# #         create_task_master_json=create_task_master.json()
-# #         # task_master_id = create_task_master_json['id']
-# #         print("Response JSON : ",json.dumps(create_task_master_json,indent=4))
-# #         # print(task_group_id)
-# #         print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
-# #     else:
-# #         error_text=create_task_master.json()["errorMessage"]
-# #         print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m",create_task_master.status_code)
-
-
-
-
-
-        
-
+    # 1 : Create Task MASTER :
+    task_master_id=None
     data = {
-        "name": "tasktest",
+        "name": "thes9",
         "executionDepartment": execution_department_id,
-        "conditionalOutputAction": True,
+        "conditionalOutputAction": str(to_bool(True)).lower(),
         "taskGroupId": taskgroupid,
-        "taskStatus": [
-            {
-                "statusId": taskStatus1,
-                "label": "open"
-            },
-            {
-                "statusId": taskStatus2,
-                "label": "pending"
-            }
-        ],
-        "isActive": True
+        "taskStatus[0].statusId": taskStatus1,
+        "taskStatus[0].label": "open",
+        "taskStatus[1].statusId": taskStatus2,
+        "taskStatus[1].label": "pending",
+        "isActive": str(to_bool(True)).lower()
     }
 
+    desktop_path = r"C:\Users\SMM-06\Desktop\file1.txt"
 
-    create_task_master = requests.post(base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",headers=headers,json=data)
-    if create_task_master.status_code == 201:
-        create_task_master_json=create_task_master.json()
-        # task_master_id = create_task_master_json['id']
-        print("Response JSON : ",json.dumps(create_task_master_json,indent=4))
-        # print(task_group_id)
-        print(taskStatus1)
-        print(f"\033[92m✅ Test Case ID - 002 : Task Master Creation   : TEST PASSED...!  \033[0m")
-    else:
-        error_text=create_task_master.json()["errorMessage"]
-        print(f"\033[91m❌ Test Case ID - 002 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m")
+    # Auto-create the file if it doesn't exist
+    if not os.path.exists(desktop_path):
+        with open(desktop_path, "w") as f:
+            f.write("Sample content for upload")
 
+    with open(desktop_path, "rb") as f:
+        files = {
+            "uploadfiles": ("dfadgdf.txt", f, "text/plain")
+        }
+        response = requests.post(
+            base_url + f"api/v1/tasks/task-master/web/{company_id}/create-task-master",
+            headers={"Authorization": f"Bearer {token}"},
+            data=data,
+            files=files,
+            timeout=60
+        )
+        if response.status_code==200:
+            task_master_creation_json=response.json()
+
+            # print(response.status_code)
+            # print(response.text)
+            print(f"\033[92m✅ Test Case ID - TM1 : Task Master Creation   : TEST PASSED...!  \033[0m")
+            task_master_id = task_master_creation_json['id']
+            # print(task_master_id)
+        else:
+            error_text=response.json()["errorMessage"]
+            response.text
+            print(f"\033[91m❌ Test Case ID - 005 : Task Master Creation   : TEST FAILED...! : {error_text}  \033[0m")
+
+        
 
 
 
@@ -230,7 +198,7 @@ if response_login.status_code == 200:
     if task_master_get_list.status_code == 200:
         task_master_get_list_json=task_master_get_list.json()
         # print("Response JSON : ",json.dumps(task_master_get_list_json,indent=4))
-        task_master_id = task_master_get_list_json['taskMasters'][0]['id']
+        # task_master_id = task_master_get_list_json['taskMasters'][0]['id']
 
         # print(task_master_id)
         print(f"\033[92m✅ Test Case ID - 005 : Task Master Get List   : TEST PASSED...!  \033[0m")
@@ -250,34 +218,44 @@ if response_login.status_code == 200:
      
 # 3 : Update Task Master : 
 
-    update_task_master_payload ={
-        "name": "tasktestupdated",
+    Update_data = {
+        "name": "th",
         "executionDepartment": execution_department_id,
-        "conditionalOutputAction":True,
-        "taskGroupId": "6d83b402885c9068efd7de7a",
-        "taskStatus": [
-            {
-                "statusId": taskStatus1,
-                "label": "open"
-            },
-            {
-                "statusId": taskStatus2,
-                "label": "pending"
-            }
-        ],
-        "isActive": True
+        "conditionalOutputAction": str(to_bool(True)).lower(),
+        "taskGroupId": taskgroupid,
+        "taskStatus[0].statusId": taskStatus1,
+        "taskStatus[0].label": "open",
+        "taskStatus[1].statusId": taskStatus2,
+        "taskStatus[1].label": "pending",
+        "isActive": str(to_bool(True)).lower()
     }
 
-    update_task_master = requests.put(base_url + f"api/v1/tasks/task-master/web/{company_id}/update-task-master/{task_master_id}",json=update_task_master_payload,headers=headers)
-    if update_task_master.status_code == 200:
-        update_task_master_json=update_task_master.json()
-        # print("Response JSON : ",json.dumps(update_task_master_json,indent=4))
+    desktop_path = r"C:\Users\SMM-06\Desktop\file1.txt"
+
+    # Auto-create the file if it doesn't exist
+    if not os.path.exists(desktop_path):
+        with open(desktop_path, "w") as f:
+            f.write("Sample content for upload")
+
+    with open(desktop_path, "rb") as f:
+        files = {
+            "uploadfiles": ("dfadgdf.txt", f, "text/plain")
+        }
+        response_update = requests.put(
+            base_url + f"api/v1/tasks/task-master/web/{company_id}/update-task-master/{task_master_id}",
+            headers={"Authorization": f"Bearer {token}"},
+            data=data,
+            files=files,
+            timeout=60
+        )
+    if response_update.status_code == 200:
+        response_update_json=response_update.json()
+        # print("Response JSON : ",json.dumps(response_update_json,indent=4))
         print(f"\033[92m✅ Test Case ID - 007 : Task Master Updation   : TEST PASSED...!  \033[0m")
     else:
-        error_text=update_task_master.json()["errorMessage"]
-        update_task_master.text
+        error_text=response_update.json()["errorMessage"]
+        response_update.text
         print(f"\033[91m❌ Test Case ID - 007 : Task Master Updation   : TEST FAILED...! : {error_text}  \033[0m")
-
 
 
 
